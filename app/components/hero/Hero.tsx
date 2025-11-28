@@ -1,20 +1,47 @@
+"use client"
+import { useState, useEffect } from "react";
 import { MapPin, Clock } from "lucide-react";
 import PROFILE from "@/app/data/profile";
-import { formatTime } from "@/app/lib/formatTime";
 import ContactButtons from "./ContactButtons";
 import Avatar from "./Avatar";
 
 const Hero = () => {
-    const { name, location, email, github, linkedin, tagline, bioShort, bioLong } = PROFILE;
+    const { name, location, email, github, linkedin, twitter, tagline, bioShort, bioLong } = PROFILE;
+
+    // State for current PST time
+    const [pstTime, setPstTime] = useState("");
+
+    useEffect(() => {
+        const updateTime = () => {
+            const now = new Date();
+
+            // Convert to PST (UTC-8 standard, ignoring DST for simplicity)
+            const pstOffset = -8 * 60; // PST is UTC-8 in minutes
+            const localOffset = now.getTimezoneOffset(); // browser offset in minutes
+            const pstDate = new Date(now.getTime() + (pstOffset + localOffset) * 60000);
+
+            // Format as HH:MM:SS AM/PM
+            const hours = pstDate.getHours();
+            const minutes = pstDate.getMinutes();
+            const seconds = pstDate.getSeconds();
+            const ampm = hours >= 12 ? "PM" : "AM";
+            const formattedHours = hours % 12 || 12;
+            const formattedMinutes = minutes.toString().padStart(2, "0");
+            const formattedSeconds = seconds.toString().padStart(2, "0");
+
+            setPstTime(`${formattedHours}:${formattedMinutes}:${formattedSeconds} ${ampm}`);
+        };
+
+        updateTime(); // set immediately
+        const interval = setInterval(updateTime, 1000); // update every second
+        return () => clearInterval(interval); // cleanup
+    }, []);
 
     return (
         <section className="shadow-lg p-4 sm:p-6 flex flex-col md:flex-row items-start md:items-center gap-4 sm:gap-6 bg-bg text-text">
-
             {/* Left Content */}
             <div className="flex-1 w-full flex flex-col">
-                {/* Name + Avatar Row */}
                 <div className="flex items-start justify-between gap-4">
-                    {/* Text Column */}
                     <div className="flex-1 flex flex-col justify-center">
                         <p className="text-accent-cyan mb-2 text-xs sm:text-sm">Hi, I'm {name.split(" ")[0]} 👋</p>
                         <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-text leading-tight">{name}</h1>
@@ -26,7 +53,7 @@ const Hero = () => {
 
                             <span className="flex items-center font-mono tabular-nums">
                                 <Clock className="w-4 h-4 mr-1 text-accent-blue" />
-                                {formatTime()} PST
+                                {pstTime} PST
                             </span>
 
                             <span className="flex items-center text-accent-green font-semibold">
@@ -38,31 +65,25 @@ const Hero = () => {
                             </span>
                         </div>
                     </div>
-
-                    {/* Avatar for Mobile */}
                     <div className="md:hidden self-center">
                         <Avatar name={name} size="sm" />
                     </div>
                 </div>
 
-                {/* Bio */}
                 <p className="text-sm sm:text-base text-text-muted leading-relaxed mt-4">
                     <strong className="text-text">{tagline}</strong> — {bioShort}
                 </p>
 
                 <p className="text-sm sm:text-base text-text-muted leading-relaxed mt-4">{bioLong}</p>
 
-                {/* Contact Buttons */}
                 <div className="mt-6">
-                    <ContactButtons email={email} github={github} linkedin={linkedin} />
+                    <ContactButtons email={email} github={github} linkedin={linkedin} twitter={twitter} />
                 </div>
             </div>
 
-            {/* Avatar for Desktop */}
             <div className="hidden md:block">
                 <Avatar name={name} size="md" />
             </div>
-
         </section>
     );
 };

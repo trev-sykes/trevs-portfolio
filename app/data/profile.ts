@@ -6,6 +6,7 @@ const PROFILE = {
   email: "trevsykes97@gmail.com",
   github: "https://github.com/trev-sykes",
   linkedin: "https://www.linkedin.com/in/trevsykes",
+  twitter: "https://x.com/freshly_mulched",
   portfolio: "https://trevs-portfolio.vercel.app",
   tagline: "Fullstack Developer",
   bioShort: `

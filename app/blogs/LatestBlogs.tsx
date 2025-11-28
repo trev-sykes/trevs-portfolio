@@ -7,7 +7,7 @@ export default function LatestBlog() {
     const latestBlog: BlogPost = BLOGS[0];
 
     return (
-        <section className="shadow-lg p-4 sm:p-5 rounded-lg border border-border-dark mb-6 sm:mb-8 hover:shadow-xl hover:shadow-accent-purple/20 transition-all duration-300">
+        <section className="shadow-lg p-4 sm:p-5  mb-6 sm:mb-8 hover:shadow-xl hover:shadow-accent-purple/20 transition-all duration-300">
             <div className="flex items-center gap-2 mb-3">
                 <Flame className="w-5 h-5 text-accent-purple" />
                 <h3 className="text-lg sm:text-xl font-semibold text-text">

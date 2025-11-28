@@ -24,7 +24,6 @@ export default function Avatar({ name, size = "md" }: Props) {
                 bg-gradient-to-br from-accent-cyan to-accent-blue
                 rounded-md flex items-center justify-center overflow-hidden 
                 shadow-2xl border-4 border-surface
-                hover:scale-105 hover:rotate-3 transition-all duration-300 cursor-pointer
             `}
         >
             <img

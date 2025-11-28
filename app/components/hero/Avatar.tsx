@@ -19,7 +19,13 @@ export default function Avatar({ name, size = "md" }: Props) {
 
     return (
         <div
-            className={`flex-shrink-0 ${SIZE_CLASSES[size]} bg-gradient-to-br from-cyan-500 to-purple-600 rounded-md flex items-center justify-center overflow-hidden shadow-2xl border-4 border-gray-700 hover:scale-105 hover:rotate-3 transition-all duration-300 cursor-pointer`}
+            className={`
+                flex-shrink-0 ${SIZE_CLASSES[size]} 
+                bg-gradient-to-br from-accent-cyan to-accent-blue
+                rounded-md flex items-center justify-center overflow-hidden 
+                shadow-2xl border-4 border-surface
+                hover:scale-105 hover:rotate-3 transition-all duration-300 cursor-pointer
+            `}
         >
             <img
                 src="/mugshot.jpeg"

@@ -1,3 +1,4 @@
+import LatestBlog from "./blogs/LatestBlogs";
 import ContributionGraph from "./components/contributions/ContributionGraph";
 import Footer from "./components/footer/Footer";
 import Hero from "./components/hero/Hero";
@@ -13,6 +14,7 @@ export default function Home() {
           <Hero />
           <SkillsMarquee />
           <FeaturedProjects />
+          <LatestBlog />
           <ContributionGraph />
           <Footer />
         </Container>

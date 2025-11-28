@@ -12,7 +12,7 @@ export default function SkillsMarquee() {
         <section className="shadow-lg p-6 overflow-hidden">
             <SectionTitle
                 title="🛠️ Tech Stack"
-                icon={<Flame className="w-6 h-6 text-orange-400" />}
+                icon={<Flame className="w-6 h-6 text-accent-orange" />}
             />
 
             {/* Each row scrolls horizontally on mobile */}

@@ -14,14 +14,14 @@ const PROJECTS: Project[] = [
     },
     {
         id: 2,
-        title: "Hype Dex",
+        title: "Home Page Template",
         description:
-            "A decentralized bonding curve marketplace for creating, minting, and burning ETH-backed ERC-6909 tokens. Built with React, TypeScript, Solidity, Foundry, and Wagmi, featuring quadratic token pricing, real-time charting, and trustless on-chain reserves.",
-        mobileDescription: "Decentralized token market with bonding curves and on-chain reserves.",
-        liveDemo: "https://hype-it.vercel.app/",
-        github: "https://github.com/trev-sykes/hype-dex",
-        thumbnail: "/projects/hype-dex.png",
-        tech: ["React", "TypeScript", "Solidity", "Foundry", "Wagmi", "Ethers.js", "Vite"]
+            "A sleek and modern landing page with Web3 aesthetics, built with React, TypeScript, TailwindCSS, Vite, and Framer Motion. Features smooth animations, responsive interactive buttons, and a polished, adaptable layout suitable for e-commerce brands and Web3 dApps.",
+        mobileDescription: "Modern Web3-style landing page with smooth animations.",
+        liveDemo: "https://home-page-template.vercel.app/",
+        github: "https://github.com/trev-sykes/home-page-template",
+        thumbnail: "/projects/home-page.png",
+        tech: ["React", "TypeScript", "Tailwind CSS", "Vite", "Framer Motion"]
     },
     {
         id: 3,
@@ -68,15 +68,15 @@ const PROJECTS: Project[] = [
         tech: ["Solidity", "React", "TypeScript", "Ethers.js", "Chainlink", "Vite"]
     },
     {
-        id: 7,
-        title: "Home Page Template",
+        id: 2,
+        title: "Hype Dex",
         description:
-            "A sleek and modern landing page with Web3 aesthetics, built with React, TypeScript, TailwindCSS, Vite, and Framer Motion. Features smooth animations, responsive interactive buttons, and a polished, adaptable layout suitable for e-commerce brands and Web3 dApps.",
-        mobileDescription: "Modern Web3-style landing page with smooth animations.",
-        liveDemo: "https://home-page-template.vercel.app/",
-        github: "https://github.com/trev-sykes/home-page-template",
-        thumbnail: "/projects/home-page.png",
-        tech: ["React", "TypeScript", "Tailwind CSS", "Vite", "Framer Motion"]
+            "A decentralized bonding curve marketplace for creating, minting, and burning ETH-backed ERC-6909 tokens. Built with React, TypeScript, Solidity, Foundry, and Wagmi, featuring quadratic token pricing, real-time charting, and trustless on-chain reserves.",
+        mobileDescription: "Decentralized token market with bonding curves and on-chain reserves.",
+        liveDemo: "https://hype-it.vercel.app/",
+        github: "https://github.com/trev-sykes/hype-dex",
+        thumbnail: "/projects/hype-dex.png",
+        tech: ["React", "TypeScript", "Solidity", "Foundry", "Wagmi", "Ethers.js", "Vite"]
     },
     {
         id: 8,

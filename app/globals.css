@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-@import "tailwindcss";
 
 @theme {
   --color-bg: #1a1a1a;
@@ -76,4 +75,18 @@ html {
   /* IE and Edge */
   scrollbar-width: none;
   /* Firefox */
+}
+
+/* Add to your theme or global CSS */
+contribution-graph {
+  image-rendering: pixelated;
+  /* Optional: sharper look */
+}
+
+/* Better hover on mobile (tap feedback) */
+@media (hover: none) {
+  [title]:active {
+    transform: scale(1.4) !important;
+    z-index: 10;
+  }
 }

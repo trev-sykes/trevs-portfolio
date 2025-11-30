@@ -15,7 +15,7 @@ export default function Home() {
           <SkillsMarquee />
           <FeaturedProjects />
           <LatestBlog />
-          <ContributionGraph />
+          <ContributionGraph username="trev-sykes" />
           <Footer />
         </Container>
       </main>

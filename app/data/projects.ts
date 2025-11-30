@@ -9,7 +9,7 @@ const PROJECTS: Project[] = [
         mobileDescription: "Real-time chat app with auth, animations, and a modern UI.",
         liveDemo: "https://chat-rooms-chi.vercel.app/",
         github: "https://github.com/trev-sykes/ChatRooms",
-        thumbnail: "/chatrooms.png",
+        thumbnail: "/projects/chatrooms.png",
         tech: ["React", "TypeScript", "Express.js", "Prisma", "PostgreSQL", "Framer Motion", "Vite"]
     },
     {
@@ -20,7 +20,7 @@ const PROJECTS: Project[] = [
         mobileDescription: "Decentralized token market with bonding curves and on-chain reserves.",
         liveDemo: "https://hype-it.vercel.app/",
         github: "https://github.com/trev-sykes/hype-dex",
-        thumbnail: "/hype-dex.png",
+        thumbnail: "/projects/hype-dex.png",
         tech: ["React", "TypeScript", "Solidity", "Foundry", "Wagmi", "Ethers.js", "Vite"]
     },
     {
@@ -31,7 +31,7 @@ const PROJECTS: Project[] = [
         mobileDescription: "Animated blog sharing thoughts on tech, crypto, and big ideas.",
         liveDemo: "https://question-everything.vercel.app/",
         github: "https://github.com/trev-sykes/question-everything",
-        thumbnail: "/question-everything.png",
+        thumbnail: "/projects/question-everything.png",
         tech: ["React", "TypeScript", "Vite", "Framer Motion", "Tailwind CSS"]
     },
     {
@@ -42,7 +42,7 @@ const PROJECTS: Project[] = [
         mobileDescription: "Alien-inspired terminal app for notes with retro animations.",
         liveDemo: "https://nostromo-notes.vercel.app/",
         github: "https://github.com/trev-sykes/nostromo-notes",
-        thumbnail: "/nostromo-notes.png",
+        thumbnail: "/projects/nostromo-notes.png",
         tech: ["React", "TypeScript", "Vite", "zustand", "Framer Motion", "Tailwind CSS"]
     },
     {
@@ -53,7 +53,7 @@ const PROJECTS: Project[] = [
         mobileDescription: "Visual simulator for token bonding curves and market dynamics.",
         liveDemo: "https://bonding-curve-asset-simulator.vercel.app/",
         github: "https://github.com/trev-sykes/BondingCurveSimulator",
-        thumbnail: "/bonding-curve.png",
+        thumbnail: "/projects/bonding-curve.png",
         tech: ["React", "TypeScript", "ReCharts", "Material UI", "Vite"]
     },
     {
@@ -64,7 +64,7 @@ const PROJECTS: Project[] = [
         mobileDescription: "BTC-backed stablecoin dApp with on-chain minting and liquidation.",
         liveDemo: "https://stablecoin-protocol.vercel.app/",
         github: "https://github.com/trev-sykes/Stablecoin-Protocol",
-        thumbnail: "/stablecoin.png",
+        thumbnail: "/projects/stablecoin.png",
         tech: ["Solidity", "React", "TypeScript", "Ethers.js", "Chainlink", "Vite"]
     },
     {
@@ -75,7 +75,7 @@ const PROJECTS: Project[] = [
         mobileDescription: "Modern Web3-style landing page with smooth animations.",
         liveDemo: "https://home-page-template.vercel.app/",
         github: "https://github.com/trev-sykes/home-page-template",
-        thumbnail: "/home-page.png",
+        thumbnail: "/projects/home-page.png",
         tech: ["React", "TypeScript", "Tailwind CSS", "Vite", "Framer Motion"]
     },
     {
@@ -86,7 +86,7 @@ const PROJECTS: Project[] = [
         mobileDescription: "Confess regrets and earn ETH — a reflective Web3 dApp on Arbitrum.",
         liveDemo: "https://proof-of-regret.vercel.app/",
         github: "https://github.com/trev-sykes/proof-of-regret",
-        thumbnail: "/proof-of-regret.png",
+        thumbnail: "/projects/proof-of-regret.png",
         tech: ["React", "TypeScript", "Solidity", "Ethers.js", "Vite", "Tailwind CSS"]
     }
 ];

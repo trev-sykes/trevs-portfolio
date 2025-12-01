@@ -14,14 +14,14 @@ const PROJECTS: Project[] = [
     },
     {
         id: 2,
-        title: "Home Page Template",
+        title: "Nostromo Notes",
         description:
-            "A sleek and modern landing page with Web3 aesthetics, built with React, TypeScript, TailwindCSS, Vite, and Framer Motion. Features smooth animations, responsive interactive buttons, and a polished, adaptable layout suitable for e-commerce brands and Web3 dApps.",
-        mobileDescription: "Modern Web3-style landing page with smooth animations.",
-        liveDemo: "https://home-page-template.vercel.app/",
-        github: "https://github.com/trev-sykes/home-page-template",
-        thumbnail: "/projects/home-page.png",
-        tech: ["React", "TypeScript", "Tailwind CSS", "Vite", "Framer Motion"]
+            "A terminal-style React app inspired by the Alien franchise, allowing users to add, modify, and delete notes with interactive features, animations, and a nostalgic boot sequence. Built with React, TypeScript, Vite, and zustand for efficient state management.",
+        mobileDescription: "Alien-inspired terminal app for notes with retro animations.",
+        liveDemo: "https://nostromo-notes.vercel.app/",
+        github: "https://github.com/trev-sykes/nostromo-notes",
+        thumbnail: "/projects/nostromo-notes.png",
+        tech: ["React", "TypeScript", "Vite", "zustand", "Framer Motion", "Tailwind CSS"]
     },
     {
         id: 3,
@@ -36,14 +36,14 @@ const PROJECTS: Project[] = [
     },
     {
         id: 4,
-        title: "Nostromo Notes",
+        title: "Home Page Template",
         description:
-            "A terminal-style React app inspired by the Alien franchise, allowing users to add, modify, and delete notes with interactive features, animations, and a nostalgic boot sequence. Built with React, TypeScript, Vite, and zustand for efficient state management.",
-        mobileDescription: "Alien-inspired terminal app for notes with retro animations.",
-        liveDemo: "https://nostromo-notes.vercel.app/",
-        github: "https://github.com/trev-sykes/nostromo-notes",
-        thumbnail: "/projects/nostromo-notes.png",
-        tech: ["React", "TypeScript", "Vite", "zustand", "Framer Motion", "Tailwind CSS"]
+            "A sleek and modern landing page with Web3 aesthetics, built with React, TypeScript, TailwindCSS, Vite, and Framer Motion. Features smooth animations, responsive interactive buttons, and a polished, adaptable layout suitable for e-commerce brands and Web3 dApps.",
+        mobileDescription: "Modern Web3-style landing page with smooth animations.",
+        liveDemo: "https://home-page-template.vercel.app/",
+        github: "https://github.com/trev-sykes/home-page-template",
+        thumbnail: "/projects/home-page.png",
+        tech: ["React", "TypeScript", "Tailwind CSS", "Vite", "Framer Motion"]
     },
     {
         id: 5,

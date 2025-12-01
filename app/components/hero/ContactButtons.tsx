@@ -1,4 +1,4 @@
-import { Mail, Github, Linkedin, Twitter } from "lucide-react";
+import { Mail, Github, Linkedin, X } from "lucide-react";
 
 interface Props {
     email: string;
@@ -51,7 +51,7 @@ export default function ContactButtons({ email, github, linkedin, twitter }: Pro
                     rel="noopener noreferrer"
                     className={`${BUTTON_BASE} bg-black text-white hover:bg-pink-500 hover:shadow-pink-400/50`}
                 >
-                    <Twitter className="w-3 h-3 sm:w-4 sm:h-4" /> X
+                    <X className="w-3 h-3 sm:w-4 sm:h-4" />@freshly_mulched
                 </a>
             )}
         </div>

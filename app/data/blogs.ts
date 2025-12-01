@@ -10,7 +10,7 @@ const BLOGS: BlogPost[] = [
     {
         id: "grokking-dnc-algorithms",
         title: "Learning Divide & Conquer Algorithms",
-        date: "2025-11-27",
+        date: "2025-08-27",
         excerpt: "My journey understanding divide-and-conquer through Grokking Algorithms and hands-on coding.",
         content: `
 ### Introduction
@@ -82,7 +82,7 @@ I can now confidently approach problems like merge sort, quicksort, and binary s
     {
         id: "express-prisma-postgres-setup",
         title: "Connecting Express to Prisma & Postgres",
-        date: "2025-11-27",
+        date: "2025-11-01",
         excerpt: "How I structured my Express backend, set up Prisma with Postgres, and built clean services, controllers, and routes.",
         content: `
 ### Introduction
@@ -270,6 +270,230 @@ Setting all this up helped me understand the *bigger picture* of backend archite
 
 And honestly? I can't wait to build more with it.
         `,
+    },
+    {
+        id: "mastering-express-with-typescript",
+        title: "How I Learned to Love Express, With TypeScript",
+        date: "2025-11-30",
+        excerpt: "My personal breakdown of Express fundamentals, TypeScript integration, clean architecture, and how it seamlessly supports any React or Next.js app.",
+        content: `
+### Introduction
+
+So lately, I’ve been going *deeper* into **Express**, and honestly?  
+I started appreciating it way more once I stripped away all the extras — no Prisma, no Postgres, no noise.  
+Just Express, TypeScript, and intentional structure.
+
+It felt like learning the **language of the backend** for real.
+
+I stopped thinking of Express as “just a simple server” and started seeing it as a flexible little engine that powers pretty much any front-end I throw at it — React, Next.js, mobile apps, whatever.
+
+---
+
+### Why TypeScript + Express Just Makes Sense
+
+At first, I thought mixing TypeScript with Express would slow me down.  
+But then it clicked:
+
+\`Request\` and \`Response\` types help prevent dumb mistakes  
+- autocompletion becomes your best friend  
+- controller/service boundaries become *cleaner* because types move with your data  
+
+It’s like Express grows up a bit when TypeScript enters the room.
+
+So I made a simple project:
+
+\`\`\`bash
+npm init -y
+npm install express cors
+npm install -D typescript ts-node-dev @types/node @types/express
+npx tsc --init
+\`\`\`
+
+Then I flipped the switch:
+
+\`\`\`json
+{
+    "compilerOptions": {
+    "target": "ES2020",
+    "module": "CommonJS",
+    "outDir": "dist",
+    "rootDir": "src",
+    "strict": true,
+    "esModuleInterop": true
+    }
+}
+\`\`\`
+
+Instantly, everything felt *structured*.
+
+---
+
+### The Backend Structure That Just Works
+
+I kept coming back to this layout because it scales without becoming a mess:
+
+\`\`\`
+src/
+    controllers/
+    services/
+    routes/
+    middleware/
+    types/
+    index.ts
+\`\`\`
+
+It’s simple but disciplined.
+
+- **controllers** → entry point of your app logic  
+- **services** → reusable business logic  
+- **routes** → HTTP endpoints  
+- **middleware** → auth, logs, etc  
+- **types** → custom TS interfaces for your data  
+
+This structure prevents everything ending up in \`index.ts\` like a doomed spaghetti experiment.
+
+---
+
+### Controllers: Where I Stopped Mixing Logic With Responses
+
+A controller should *answer a request*, nothing more.
+
+\`\`\`ts
+// controllers/userController.ts
+import { Request, Response } from "express";
+import * as userService from "../services/userService";
+
+export const getAllUsers = async (req: Request, res: Response) => {
+    const users = await userService.fetchUsers();
+    res.json(users);
+};
+\`\`\`
+
+No database code, no validation logic.  
+Just a simple bridge between Express and your service layer.
+
+---
+
+### Services: My Favorite Layer
+
+Once I separated services, everything felt cleaner.
+
+\`\`\`ts
+// services/userService.ts
+export const fetchUsers = async () => {
+    return [
+        { id: 1, name: "Satoshi" },
+        { id: 2, name: "Ada" }
+    ];
+};
+\`\`\`
+
+The service layer is where the “thinking” happens.  
+Validation, transformations, DB calls — all here.
+
+---
+
+### Routes: The Map of My API
+
+\`\`\`ts
+// routes/userRoutes.ts
+import { Router } from "express";
+import { getAllUsers } from "../controllers/userController";
+
+const router = Router();
+
+router.get("/", getAllUsers);
+
+export default router;
+\`\`\`
+
+Simple. Readable. Scalable.
+
+---
+
+### The Index File: Where the Magic Starts
+
+This is where I fixed the classic mistakes:
+
+- forgetting \`express.json()\`  
+- not configuring CORS  
+- letting all routes live in \`index.ts\`  
+
+\`\`\`ts
+// index.ts
+import express from "express";
+import cors from "cors";
+import userRoutes from "./routes/userRoutes";
+
+const app = express();
+
+app.use(express.json());
+app.use(cors());
+
+app.use("/users", userRoutes);
+
+app.listen(3000, () => console.log("Server running on port 3000"));
+\`\`\`
+
+Adding \`express.json()\` feels like unlocking a secret door — suddenly your API accepts JSON like a civilized human.
+
+---
+
+### Why This Fits Perfectly With React or Next.js
+
+React and Next love predictable, well-structured APIs.
+
+When Express is modular and typed:
+
+- fetching becomes dead simple  
+- endpoints are obvious  
+- refactoring doesn’t break everything  
+- you get a clean division of responsibility  
+
+React/Next asks → Express answers.  
+Life is good.
+
+---
+
+### Common Mistakes I Stopped Making
+
+- ❌ putting all logic in one file  
+- ❌ forgetting \`express.json()\`  
+- ❌ ignoring CORS  
+- ❌ mixing DB logic in controllers  
+- ❌ not typing request bodies  
+- ❌ not using async/await everywhere  
+
+Once I stopped doing these, everything felt cleaner.
+
+---
+
+### Tips I Wish Someone Told Me Earlier
+
+- Middleware is your best friend  
+- Type your request bodies  
+- Group routes by domain  
+- Let controllers stay simple  
+- Put the complexity in services  
+- Name your files clearly  
+- Small files are good files  
+
+---
+
+### Final Thoughts
+
+This Express + TypeScript phase felt like a real leveling-up moment.
+
+It wasn’t flashy.  
+It wasn’t trendy.  
+Just clean architecture, clear boundaries, and this peaceful sense that everything is finally “in its place.”
+
+Now Express feels like a quiet, dependable foundation under all my React and Next apps.
+
+Honestly?  
+That’s when you really *get* Express —  
+when it disappears and simply supports your whole stack without getting in the way.
+        `
     }
 
 ];

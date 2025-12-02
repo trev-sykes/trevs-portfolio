@@ -68,7 +68,7 @@ const PROJECTS: Project[] = [
         tech: ["Solidity", "React", "TypeScript", "Ethers.js", "Chainlink", "Vite"]
     },
     {
-        id: 2,
+        id: 7,
         title: "Hype Dex",
         description:
             "A decentralized bonding curve marketplace for creating, minting, and burning ETH-backed ERC-6909 tokens. Built with React, TypeScript, Solidity, Foundry, and Wagmi, featuring quadratic token pricing, real-time charting, and trustless on-chain reserves.",

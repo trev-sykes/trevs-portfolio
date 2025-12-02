@@ -22,8 +22,17 @@ export default async function ProjectDetail({ params }: Props) {
     const project = PROJECTS.find((p) => p.id === parseInt(id));
     if (!project) return notFound();
 
-    // Create recommended projects (excluding current one)
-    const recommended = PROJECTS.filter(p => p.id !== project.id).slice(0, 2);
+    // Exclude current blog
+    const otherProjects = PROJECTS.filter(p => p.id !== parseInt(id));
+
+    // Shuffle the array using Fisher-Yates
+    for (let i = otherProjects.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [otherProjects[i], otherProjects[j]] = [otherProjects[j], otherProjects[i]];
+    }
+
+    // Pick first two after shuffle
+    const recommended = otherProjects.slice(0, 2);
 
     return (
         <>

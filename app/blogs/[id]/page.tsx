@@ -26,24 +26,31 @@ const markdownComponents: Partial<Components> = {
         <p className="text-text leading-relaxed mb-3" {...props} />
     ),
     code: ({ node, inline, className, children, ...props }: any) => {
-        return inline ? (
-            <code
-                className="bg-surface-dark px-1 py-0.5 rounded text-accent-cyan font-mono"
-                {...props}
-            >
-                {children}
-            </code>
-        ) : (
-            <pre className="bg-surface-dark text-text p-4 rounded-md overflow-x-auto shadow-sm my-4">
+        if (inline) {
+            return (
                 <code
-                    className={`language-${className?.replace("language-", "")} font-mono`}
+                    className="bg-surface-dark px-1 py-0.5 rounded text-accent-cyan font-mono"
                     {...props}
                 >
                     {children}
                 </code>
-            </pre>
+            );
+        }
+
+        // For code blocks, return only the <code> element
+        // rehype-highlight will wrap it in <pre> automatically
+        return (
+            <code
+                className={className}
+                {...props}
+            >
+                {children}
+            </code>
         );
     },
+    pre: ({ node, ...props }) => (
+        <pre className="bg-surface-dark text-text p-4 rounded-md overflow-x-auto shadow-sm my-4" {...props} />
+    ),
     li: ({ node, ...props }) => (
         <li className="mb-1 ml-4 list-disc text-text" {...props} />
     ),
@@ -58,8 +65,17 @@ export default async function BlogPost({ params }: Props) {
     const blog = BLOGS.find((b) => b.id === id);
     if (!blog) return notFound();
 
-    // Create recommended blogs (excluding current one)
-    const recommended = BLOGS.filter(b => b.id !== id).slice(0, 2);
+    // Exclude current blog
+    const otherBlogs = BLOGS.filter(b => b.id !== id);
+
+    // Shuffle the array using Fisher-Yates
+    for (let i = otherBlogs.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [otherBlogs[i], otherBlogs[j]] = [otherBlogs[j], otherBlogs[i]];
+    }
+
+    // Pick first two after shuffle
+    const recommended = otherBlogs.slice(0, 2);
 
     return (
         <>

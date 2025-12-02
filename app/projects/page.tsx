@@ -29,6 +29,11 @@ export default function ProjectsPage() {
                     </Link>
                 </div>
 
+                {/* Description */}
+                <p className="text-text-muted mb-8">
+                    Explore my latest creations. Click a project to see it in action!
+                </p>
+
                 {/* Projects Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {PROJECTS.map((project) => (

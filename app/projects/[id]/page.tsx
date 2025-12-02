@@ -78,6 +78,7 @@ export default async function ProjectDetail({ params }: Props) {
                 {/* Project Thumbnail */}
                 <div className="mb-8 rounded-lg overflow-hidden border border-border-dark shadow-xl">
                     <img
+                        loading="lazy"
                         src={project.thumbnail}
                         alt={project.title}
                         className="w-full h-auto"

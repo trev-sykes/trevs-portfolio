@@ -494,8 +494,130 @@ Honestly?
 That’s when you really *get* Express —  
 when it disappears and simply supports your whole stack without getting in the way.
         `
+    },
+    {
+        id: "learning-hash-tables",
+        title: "Diving Into Hash Tables",
+        date: "2025-12-01",
+        excerpt: "My journey understanding hash tables, how they work under the hood, and why they're so powerful in coding problems.",
+        content: `
+### Introduction
+
+Today, I tackled **hash tables** after reading Chapter 5 of *Grokking Algorithms*. Honestly, I underestimated them at first. I thought I understood "key-value pairs," but seeing how they actually work in memory, with hashing functions and collision handling, was eye-opening.
+
+Hash tables felt like the bridge between **thinking abstractly about data** and actually **building efficient solutions in code**.
+
+> **Tip:** When learning hash tables, visualize both the keys and their hashed indices. It makes collisions and lookups way more concrete.
+
+---
+
+### Why Hash Tables Are Magic
+
+Hash tables give us something almost unbelievable: **constant-time lookups** (O(1)) for many operations.  
+
+In JavaScript, objects or \`Map\` are hash tables under the hood. When you do:
+
+\`\`\`ts
+const map = new Map();
+map.set("name", "Satoshi");
+map.get("name"); // "Satoshi"
+\`\`\`
+
+…you're really leveraging a clever hashing algorithm that maps \`"name"\` to a specific spot in memory. The key insight is that, instead of scanning a whole array, the hash function computes exactly where to go.
+
+---
+
+### My First Mental Hurdle: Collisions
+
+A collision happens when two keys hash to the same index. At first, I thought: *"How is this even possible?"*  
+
+Grokking explains **chaining** and **open addressing**. In JS terms:
+
+- **Chaining:** store multiple values in an array at the same index  
+- **Open addressing:** find the next free slot if a collision occurs  
+
+Visualizing a small table on paper helped me **see collisions happen and get resolved**. It made hash tables less mysterious and more like a puzzle.
+
+---
+
+### Implementing a Simple Hash Table (Conceptually)
+
+I tried coding a simple conceptual hash table in JS:
+
+\`\`\`ts
+class HashTable {
+    buckets: Array<[string, any][]>;
+
+    constructor(size = 50) {
+        this.buckets = Array.from({ length: size }, () => []);
     }
 
+    _hash(key: string) {
+        let hash = 0;
+        for (let char of key) {
+            hash += char.charCodeAt(0);
+        }
+        return hash % this.buckets.length;
+    }
+
+    set(key: string, value: any) {
+        const index = this._hash(key);
+        const bucket = this.buckets[index];
+
+        for (let i = 0; i < bucket.length; i++) {
+            if (bucket[i][0] === key) {
+                bucket[i][1] = value;
+                return;
+            }
+        }
+
+        bucket.push([key, value]);
+    }
+
+    get(key: string) {
+        const index = this._hash(key);
+        const bucket = this.buckets[index];
+
+        for (let [k, v] of bucket) {
+            if (k === key) return v;
+        }
+
+        return undefined;
+    }
+}
+
+const ht = new HashTable();
+ht.set("name", "Satoshi");
+ht.get("name"); // "Satoshi"
+\`\`\`
+
+It was humbling to **build something I usually just take for granted** in JS. Seeing collisions handled manually made me appreciate what JS does behind the scenes.
+
+---
+
+### Key Takeaways
+
+- **Hashing is everywhere:** even simple objects in JS are using this.  
+- **Collisions are real:** and handling them correctly is crucial for performance.  
+- **Thinking in memory helps:** imagining indices and buckets is better than abstract definitions.  
+- **Hash tables solve problems fast:** lookups, inserts, and deletions can all be near O(1).  
+
+I also realized why many interview questions use hash tables: they let you solve problems like "two sum" or "first recurring character" efficiently without brute-force loops.
+
+---
+
+### Personal Reflection
+
+Before today, I felt comfortable using \`Map\` and object literals.  
+After today, I **understand the engine under the hood**. I know why it's fast, where collisions happen, and why hash functions matter.  
+
+It's a small shift, but it changes the way I approach problems. I'm starting to think: *"Can I transform this problem into key-value lookups?"* It's empowering.
+
+Hash tables aren't just data structures — they're a mindset shift for solving problems efficiently.
+
+> Next step: explore sets, caching problems, and hash table interview questions to solidify this understanding.
+        `,
+    }
 ];
 
 export default BLOGS;

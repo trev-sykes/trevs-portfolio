@@ -35,10 +35,9 @@ export default function FeaturedProjects() {
                     className={`
                         inline-flex flex-wrap justify-center items-center gap-2
                         px-4 sm:px-6 py-2 sm:py-3
-                        bg-gradient-to-r from-accent-cyan to-accent-purple
-                        text-text rounded-full
-                        hover:from-accent-cyan hover:to-accent-purple-dark
-                        hover:shadow-lg hover:shadow-accent-purple/50
+                        bg-accent-blue
+                        text-text rounded-sm
+                        hover:bg-accent-blue-light
                         transition-all font-semibold text-sm sm:text-base
                     `}
                 >

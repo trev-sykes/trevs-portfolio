@@ -7,7 +7,7 @@ export default function LatestBlog() {
     const latestBlog: BlogPost = BLOGS[0];
 
     return (
-        <section className="shadow-lg p-4 sm:p-5  mb-6 sm:mb-8 hover:shadow-xl hover:shadow-accent-purple/20 transition-all duration-300">
+        <section className="shadow-lg p-4 sm:p-5  mb-6 sm:mb-8">
             <div className="flex items-center gap-2 mb-3">
                 <Flame className="w-5 h-5 text-accent-purple" />
                 <h3 className="text-lg sm:text-xl font-semibold text-text">
@@ -21,14 +21,14 @@ export default function LatestBlog() {
             <div className="flex gap-2 flex-wrap">
                 <Link
                     href={`/blogs/${latestBlog.id}`}
-                    className="inline-flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-accent-cyan to-accent-purple text-text rounded-full hover:shadow-lg hover:shadow-accent-purple/50 transition-all font-semibold text-sm"
+                    className="inline-flex items-center gap-2 px-3 py-1.5 bg-accent-blue hover:bg-accent-blue-light text-text rounded-sm font-semibold text-sm"
                 >
                     Read Blog
                 </Link>
 
                 <Link
                     href="/blogs"
-                    className="inline-flex items-center gap-2 px-3 py-1.5 border border-border-dark text-text rounded-full hover:border-accent-cyan hover:text-accent-cyan transition-all text-sm"
+                    className="inline-flex items-center gap-2 px-3 py-1.5 border border-border-dark text-text rounded-sm hover:border-accent-blue-light hover:text-accent-blue-light transition-all text-sm"
                 >
                     See All Blogs
                 </Link>

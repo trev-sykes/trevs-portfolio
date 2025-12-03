@@ -10,7 +10,7 @@ interface Props {
 export default function ContactButtons({ email, github, linkedin, twitter }: Props) {
     // Smaller padding & text for mobile, bigger on sm+
     const BUTTON_BASE =
-        "px-2 sm:px-4 py-1 sm:py-2 rounded-full flex items-center gap-1 sm:gap-2 shadow-md transition-all text-xs sm:text-sm justify-center";
+        "px-2 sm:px-4 py-1 sm:py-2 rounded-sm flex items-center gap-1 sm:gap-2 shadow-md transition-all text-xs sm:text-sm justify-center";
 
     return (
         <div className="flex flex-row flex-wrap gap-2">

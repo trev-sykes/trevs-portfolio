@@ -7,7 +7,7 @@
   --color-text: #f9fafb;
   --color-text-muted: #9ca3af;
 
-  --color-accent-cyan: #22d3ee;
+  --color-accent-cyan: #7adfe7;
   --color-accent-blue: #60a5fa;
   --color-accent-green: #34d399;
   --color-accent-green-dark: #10b981;
@@ -26,8 +26,6 @@
   --color-accent-cyan-light: #67e8f9;
 
 
-  --color-gradient-start: #22d3ee;
-  --color-gradient-end: #8b5cf6;
   --color-border: #27272a;
 }
 

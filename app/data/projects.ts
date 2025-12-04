@@ -10,7 +10,8 @@ const PROJECTS: Project[] = [
         liveDemo: "https://chat-rooms-chi.vercel.app/",
         github: "https://github.com/trev-sykes/ChatRooms",
         thumbnail: "/projects/chatrooms.png",
-        tech: ["React", "TypeScript", "Express.js", "Prisma", "PostgreSQL", "Framer Motion", "Vite"]
+        tech: ["React", "TypeScript", "Express.js", "Prisma", "PostgreSQL", "Framer Motion", "Vite"],
+        hosting: ["Vercel", "Render"]
     },
     {
         id: 2,
@@ -21,7 +22,8 @@ const PROJECTS: Project[] = [
         liveDemo: "https://nostromo-notes.vercel.app/",
         github: "https://github.com/trev-sykes/nostromo-notes",
         thumbnail: "/projects/nostromo-notes.png",
-        tech: ["React", "TypeScript", "Vite", "zustand", "Framer Motion", "Tailwind CSS"]
+        tech: ["React", "TypeScript", "Vite", "zustand", "Framer Motion", "Tailwind CSS"],
+        hosting: ["Vercel"]
     },
     {
         id: 3,
@@ -32,7 +34,8 @@ const PROJECTS: Project[] = [
         liveDemo: "https://question-everything.vercel.app/",
         github: "https://github.com/trev-sykes/question-everything",
         thumbnail: "/projects/question-everything.png",
-        tech: ["React", "TypeScript", "Vite", "Framer Motion", "Tailwind CSS"]
+        tech: ["React", "TypeScript", "Vite", "Framer Motion", "Tailwind CSS"],
+        hosting: ["Vercel"]
     },
     {
         id: 4,
@@ -43,7 +46,8 @@ const PROJECTS: Project[] = [
         liveDemo: "https://home-page-template.vercel.app/",
         github: "https://github.com/trev-sykes/home-page-template",
         thumbnail: "/projects/home-page.png",
-        tech: ["React", "TypeScript", "Tailwind CSS", "Vite", "Framer Motion"]
+        tech: ["React", "TypeScript", "Tailwind CSS", "Vite", "Framer Motion"],
+        hosting: ["Vercel"]
     },
     {
         id: 5,
@@ -54,7 +58,8 @@ const PROJECTS: Project[] = [
         liveDemo: "https://bonding-curve-asset-simulator.vercel.app/",
         github: "https://github.com/trev-sykes/BondingCurveSimulator",
         thumbnail: "/projects/bonding-curve.png",
-        tech: ["React", "TypeScript", "ReCharts", "Material UI", "Vite"]
+        tech: ["React", "TypeScript", "ReCharts", "Material UI", "Vite"],
+        hosting: ["Vercel"]
     },
     {
         id: 6,
@@ -65,7 +70,8 @@ const PROJECTS: Project[] = [
         liveDemo: "https://stablecoin-protocol.vercel.app/",
         github: "https://github.com/trev-sykes/Stablecoin-Protocol",
         thumbnail: "/projects/stablecoin.png",
-        tech: ["Solidity", "React", "TypeScript", "Ethers.js", "Chainlink", "Vite"]
+        tech: ["Solidity", "React", "TypeScript", "Ethers.js", "Chainlink", "Vite"],
+        hosting: ["Sepolia Testnet", "Vercel"]
     },
     {
         id: 7,
@@ -76,7 +82,8 @@ const PROJECTS: Project[] = [
         liveDemo: "https://hype-it.vercel.app/",
         github: "https://github.com/trev-sykes/hype-dex",
         thumbnail: "/projects/hype-dex.png",
-        tech: ["React", "TypeScript", "Solidity", "Foundry", "Wagmi", "Ethers.js", "Vite"]
+        tech: ["React", "TypeScript", "Solidity", "Foundry", "Wagmi", "Ethers.js", "Vite"],
+        hosting: ["Ethereum Mainnet", "Vercel"]
     },
     {
         id: 8,
@@ -87,7 +94,8 @@ const PROJECTS: Project[] = [
         liveDemo: "https://proof-of-regret.vercel.app/",
         github: "https://github.com/trev-sykes/proof-of-regret",
         thumbnail: "/projects/proof-of-regret.png",
-        tech: ["React", "TypeScript", "Solidity", "Ethers.js", "Vite", "Tailwind CSS"]
+        tech: ["React", "TypeScript", "Solidity", "Ethers.js", "Vite", "Tailwind CSS"],
+        hosting: ["Arbitrum Testnet", "Vercel"]
     }
 ];
 

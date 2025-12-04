@@ -18,12 +18,15 @@ export default function MarqueeRow({
         direction === "left" ? "animate-marquee-left" : "animate-marquee-right";
 
     return (
-        <div className="overflow-x-auto sm:overflow-hidden whitespace-nowrap py-3 px-2 scrollbar-none">
-            <div className={`inline-flex items-center ${animationClass} sm:animate-none`}>
+        <div className="overflow-x-auto whitespace-nowrap py-3 px-2 scrollbar-none">
+            <div
+                className={`inline-flex items-center ${animationClass} pause-on-hover`}
+            >
                 {fullRow.map((skill, index) => (
                     <SkillItem key={`${skill.name}-${index}`} skill={skill} />
                 ))}
             </div>
         </div>
+
     );
 }

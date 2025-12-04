@@ -18,20 +18,15 @@ export async function generateStaticParams() {
 
 export default async function ProjectDetail({ params }: Props) {
     const { id } = await params;
-
     const project = PROJECTS.find((p) => p.id === parseInt(id));
     if (!project) return notFound();
 
-    // Exclude current blog
+    // Exclude current project
     const otherProjects = PROJECTS.filter(p => p.id !== parseInt(id));
-
-    // Shuffle the array using Fisher-Yates
     for (let i = otherProjects.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [otherProjects[i], otherProjects[j]] = [otherProjects[j], otherProjects[i]];
     }
-
-    // Pick first two after shuffle
     const recommended = otherProjects.slice(0, 2);
 
     return (
@@ -52,7 +47,7 @@ export default async function ProjectDetail({ params }: Props) {
                     <h1 className="text-3xl sm:text-4xl font-bold mb-4 text-text">{project.title}</h1>
 
                     {/* Tech Stack */}
-                    <div className="flex flex-wrap gap-2 mb-6">
+                    <div className="flex flex-wrap gap-2 mb-2">
                         {project.tech.map((tech, i) => (
                             <span
                                 key={i}
@@ -62,6 +57,20 @@ export default async function ProjectDetail({ params }: Props) {
                             </span>
                         ))}
                     </div>
+
+                    {/* Hosting Stack */}
+                    {project.hosting && project.hosting.length > 0 && (
+                        <div className="flex flex-wrap gap-2 mb-6">
+                            {project.hosting.map((host, i) => (
+                                <span
+                                    key={i}
+                                    className="px-3 py-1 text-xs font-mono bg-surface-dark border border-border-dark text-accent-cyan rounded-full"
+                                >
+                                    {host}
+                                </span>
+                            ))}
+                        </div>
+                    )}
 
                     {/* Action Buttons */}
                     <div className="flex flex-wrap gap-4">
@@ -85,14 +94,16 @@ export default async function ProjectDetail({ params }: Props) {
                 </div>
 
                 {/* Project Thumbnail */}
-                <div className="mb-8 rounded-lg overflow-hidden border border-border-dark shadow-xl">
-                    <img
-                        loading="lazy"
-                        src={project.thumbnail}
-                        alt={project.title}
-                        className="w-full h-auto"
-                    />
-                </div>
+                {project.thumbnail && (
+                    <div className="mb-8 rounded-lg overflow-hidden border border-border-dark shadow-xl">
+                        <img
+                            loading="lazy"
+                            src={project.thumbnail}
+                            alt={project.title}
+                            className="w-full h-auto"
+                        />
+                    </div>
+                )}
 
                 {/* Project Overview */}
                 <div className="mb-12">
@@ -102,7 +113,7 @@ export default async function ProjectDetail({ params }: Props) {
                     </p>
                 </div>
 
-                {/* Key Features Section */}
+                {/* Key Features */}
                 <div className="mb-12">
                     <h2 className="text-2xl font-semibold text-accent-cyan mb-4">Key Features</h2>
                     <ul className="space-y-3 text-text">
@@ -114,10 +125,12 @@ export default async function ProjectDetail({ params }: Props) {
                             <span className="text-accent-green mt-1">✓</span>
                             <span>Responsive design optimized for all devices</span>
                         </li>
-                        <li className="flex items-start gap-3">
-                            <span className="text-accent-green mt-1">✓</span>
-                            <span>Production-ready deployment on Vercel</span>
-                        </li>
+                        {project.hosting && (
+                            <li className="flex items-start gap-3">
+                                <span className="text-accent-green mt-1">✓</span>
+                                <span>Deployed on: {project.hosting.join(", ")}</span>
+                            </li>
+                        )}
                     </ul>
                 </div>
 
@@ -140,7 +153,7 @@ export default async function ProjectDetail({ params }: Props) {
                     </div>
                 </div>
 
-                {/* YOU MAY ALSO LIKE SECTION */}
+                {/* Recommended Projects */}
                 {recommended.length > 0 && (
                     <div className="mt-14">
                         <h2 className="text-2xl font-semibold text-accent-cyan mb-4 flex items-center gap-2">
@@ -163,6 +176,11 @@ export default async function ProjectDetail({ params }: Props) {
                                         {rec.tech.slice(0, 3).map((tech, i) => (
                                             <span key={i} className="text-xs px-2 py-1 bg-bg rounded text-accent-blue-light">
                                                 {tech}
+                                            </span>
+                                        ))}
+                                        {rec.hosting?.map((host, i) => (
+                                            <span key={i} className="text-xs px-2 py-1 bg-bg rounded text-accent-cyan">
+                                                {host}
                                             </span>
                                         ))}
                                     </div>

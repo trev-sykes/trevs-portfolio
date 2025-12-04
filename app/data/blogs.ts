@@ -2,6 +2,7 @@ export interface BlogPost {
     id: string;        // used in URL: /blogs/[id]
     title: string;     // blog title
     date: string;      // publish date
+    tags: string[]; // Filter blogs
     excerpt: string;   // short description for blog list
     content: string;   // full content for the dynamic page
 }
@@ -11,7 +12,8 @@ const BLOGS: BlogPost[] = [
         id: "grokking-dnc-algorithms",
         title: "Learning Divide & Conquer Algorithms",
         date: "2025-08-27",
-        excerpt: "My journey understanding divide-and-conquer through Grokking Algorithms and hands-on coding.",
+        tags: ["algorithms", "data-structures"],
+        excerpt: "Understanding divide-and-conquer through Grokking Algorithms and hands-on coding.",
         content: `
 ### Introduction
 
@@ -83,6 +85,7 @@ I can now confidently approach problems like merge sort, quicksort, and binary s
         id: "express-prisma-postgres-setup",
         title: "Connecting Express to Prisma & Postgres",
         date: "2025-11-01",
+        tags: ["backend", "express", "database"],
         excerpt: "How I structured my Express backend, set up Prisma with Postgres, and built clean services, controllers, and routes.",
         content: `
 ### Introduction
@@ -275,7 +278,8 @@ And honestly? I can't wait to build more with it.
         id: "mastering-express-with-typescript",
         title: "How I Learned to Love Express, With TypeScript",
         date: "2025-11-30",
-        excerpt: "My personal breakdown of Express fundamentals, TypeScript integration, clean architecture, and how it seamlessly supports any React or Next.js app.",
+        tags: ["backend", "express", "typescript"],
+        excerpt: "Breakdown of Express fundamentals, TypeScript integration, clean architecture, and how it seamlessly supports any React or Next.js app.",
         content: `
 ### Introduction
 
@@ -499,7 +503,8 @@ when it disappears and simply supports your whole stack without getting in the w
         id: "learning-hash-tables",
         title: "Diving Into Hash Tables",
         date: "2025-12-01",
-        excerpt: "My journey understanding hash tables, how they work under the hood, and why they're so powerful in coding problems.",
+        tags: ["algorithms", "data-structures"],
+        excerpt: "Understanding hash tables, how they work under the hood, and why they're so powerful in coding problems.",
         content: `
 ### Introduction
 
@@ -617,6 +622,98 @@ Hash tables aren't just data structures — they're a mindset shift for solving 
 
 > Next step: explore sets, caching problems, and hash table interview questions to solidify this understanding.
         `,
+    },
+    {
+        id: "my-project-workflow",
+        title: "Starting and Maintaining Projects",
+        date: "2025-12-04",
+        tags: ["productivity", "workflow", "fullstack"],
+        excerpt: "How I tackle new projects from idea to long-term maintenance, with tips from my own experiences.",
+        content: `
+### Introduction
+
+Starting a new project is always this weird mix of excitement and terror. You have ideas bouncing around in your head, but where do you even begin? Over time, I have developed a little workflow that keeps me sane and actually makes building things fun.
+
+It goes something like this: idea to stack to architecture to implementation to maintenance. Simple on paper, but each step has its own quirks and lessons.
+
+---
+
+### Step 1: Start With the Idea
+
+Everything starts with a question I ask myself over and over: What problems do I want to solve? What can I build that I will actually want to maintain?
+
+Here is the reality: a simple calculator website or a landing page for a company? Cool, sure. But I probably will not care about improving it after a week. There is no stretch, no what else can I do with this?
+
+Now, something like a real-time chat system? That is different. I actually want to polish it, tweak it, make it look nice. Something I can imagine myself coming back to, month after month. You can check one of my deployed chat projects here: My Chatroom Website at https://trevs-portfolio.vercel.app/projects/1.
+
+Pro tip: Pick ideas that make you excited to return. Your future self will thank you.
+
+---
+
+### Step 2: Pick Your Stack
+
+Once the idea is locked, it is time to pick the stack. My choices usually come down to what I want to optimize:
+
+- Fullstack apps: I lean towards Next.js with an Express backend.
+- Frontend-heavy apps: Sometimes I go React plus Vite, especially if I want hot reloads and faster iteration.
+
+Honestly, the stack is not the biggest deal. You can achieve the same results in multiple ways. What matters is what you are comfortable with. If you know it well, you move faster, hit fewer walls, and have more fun.
+
+---
+
+### Step 3: Architecture (Do Not Skip This)
+
+Architecture is that boring-but-crucial step that separates a joyful project from a spaghetti nightmare.
+
+- Backend: I love Domain-Driven Design, or simple layered structures like routes to services to controllers. Keeps things modular and testable.
+- Frontend: DRY and SOLID principles are my lifelines. I try to atomize every component, making everything reusable. React really shines when you do this right.
+
+Trust me: Spend time here. Nothing sucks more than returning to your project after a week only to find your clean code has turned into spaghetti.
+
+---
+
+### Step 4: Implementation (Time to Play)
+
+This is the fun part. I usually swap between frontend and backend as I go:
+
+- Build an API endpoint and immediately test it with Postman or the frontend.
+- Let the frontend be the live tester for the backend. Instant feedback, instant gratification.
+- Seeing a request hit your server and return the right data? Nothing beats that.
+
+I also learned something important: do not be afraid to scrap things. If something is not fun or it is frustrating to build, tear it down and start fresh. I used to stubbornly stick to a plan just because I had begun it. Now I see that ditching bad code is a feature, not a bug.
+
+---
+
+### Step 5: Maintenance and Growth
+
+Here is the part most people overlook: your project is not really done when it is working. It is only done when it is maintainable and fun to evolve.
+
+Here is how I handle it:
+
+1. Refactor as you go: Every time I open a project, I look for things that could be cleaner or more reusable. Tiny improvements stack up fast.
+2. Incremental features: I add one thing at a time, polish it, then move on. Keeps the project manageable.
+3. Document lightly: Even small comments or a mini-README save future me from headaches.
+4. Motivation check: If I am not enjoying it, I pause or pivot. Life is too short for dead-end projects. Abandoning something does not mean failure. It means I am learning what excites me.
+5. Test and monitor: Especially for APIs. I try to keep sanity checks or small automated tests in place so that as things grow, I do not accidentally break everything.
+
+Pro tip: Treat maintenance as part of the journey, not an afterthought. The projects that last are the ones that are easy to return to and expand on.
+
+---
+
+### Final Thoughts
+
+Starting a project is not just coding. It is a whole mindset:
+
+- Pick ideas that excite you
+- Choose a stack you are comfortable with
+- Architect thoughtfully
+- Implement iteratively, swapping between frontend and backend
+- Maintain, polish, and evolve
+
+I have found that when I follow this workflow, projects do not just work. They become things I genuinely enjoy coming back to.
+
+Building projects is kind of like a long-term relationship with your code: invest care, iterate often, and it will grow into something really satisfying.
+    `
     }
 ];
 

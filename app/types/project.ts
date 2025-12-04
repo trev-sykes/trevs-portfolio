@@ -7,4 +7,5 @@ export interface Project {
     github: string;
     thumbnail?: string;
     tech: string[];
+    hosting?: string[];
 }

@@ -21,14 +21,14 @@ export default function LatestBlog() {
             <div className="flex gap-2 flex-wrap">
                 <Link
                     href={`/blogs/${latestBlog.id}`}
-                    className="inline-flex items-center gap-2 px-3 py-1.5 bg-accent-blue hover:bg-accent-blue-light text-text rounded-sm font-semibold text-sm"
+                    className="inline-flex items-center gap-2 px-3 py-1.5 bg-accent-blue hover:bg-accent-blue-light text-text rounded-full font-semibold text-sm"
                 >
                     Read Blog
                 </Link>
 
                 <Link
                     href="/blogs"
-                    className="inline-flex items-center gap-2 px-3 py-1.5 border border-border-dark text-text rounded-sm hover:border-accent-blue-light hover:text-accent-blue-light transition-all text-sm"
+                    className="inline-flex items-center gap-2 px-3 py-1.5 border border-border-dark text-text rounded-full hover:border-accent-blue-light hover:text-accent-blue-light transition-all text-sm"
                 >
                     See All Blogs
                 </Link>

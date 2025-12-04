@@ -63,6 +63,10 @@ html {
   animation: marquee-right 30s linear infinite;
 }
 
+.pause-on-hover:hover {
+  animation-play-state: paused;
+}
+
 /* Hide scrollbar for all browsers */
 .scrollbar-none::-webkit-scrollbar {
   display: none;

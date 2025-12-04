@@ -36,7 +36,7 @@ export default function FeaturedProjects() {
                         inline-flex flex-wrap justify-center items-center gap-2
                         px-4 sm:px-6 py-2 sm:py-3
                         bg-accent-blue
-                        text-text rounded-sm
+                        text-text rounded-full
                         hover:bg-accent-blue-light
                         transition-all font-semibold text-sm sm:text-base
                     `}

@@ -17,12 +17,12 @@ const PROJECTS: Project[] = [
         id: 2,
         title: "Nostromo Notes",
         description:
-            "A terminal-style React app inspired by the Alien franchise, allowing users to add, modify, and delete notes with interactive features, animations, and a nostalgic boot sequence. Built with React, TypeScript, Vite, and zustand for efficient state management.",
+            "A terminal-style React app inspired by the Alien franchise, allowing users to add, modify, and delete notes with interactive features, animations, and a nostalgic boot sequence. Built with React, TypeScript, Vite, and Zustand for efficient state management.",
         mobileDescription: "Alien-inspired terminal app for notes with retro animations.",
         liveDemo: "https://nostromo-notes.vercel.app/",
         github: "https://github.com/trev-sykes/nostromo-notes",
         thumbnail: "/projects/nostromo-notes.png",
-        tech: ["React", "TypeScript", "Vite", "zustand", "Framer Motion", "Tailwind CSS"],
+        tech: ["React", "TypeScript", "Vite", "Zustand", "Framer Motion", "Tailwind CSS"],
         hosting: ["Vercel"]
     },
     {

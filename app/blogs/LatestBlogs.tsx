@@ -4,7 +4,7 @@ import BLOGS, { BlogPost } from "@/app/data/blogs";
 import { Flame } from "lucide-react";
 
 export default function LatestBlog() {
-    const latestBlog: BlogPost = BLOGS[0];
+    const latestBlog: BlogPost = BLOGS[BLOGS.length - 1];
 
     return (
         <section className="shadow-lg p-4 sm:p-5  mb-6 sm:mb-8">

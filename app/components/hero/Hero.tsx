@@ -11,6 +11,9 @@ const Hero = () => {
     // State for current PST time
     const [pstTime, setPstTime] = useState("");
 
+    // State for typewriter effect
+    const [displayedName, setDisplayedName] = useState("");
+
     useEffect(() => {
         const updateTime = () => {
             const now = new Date();
@@ -37,6 +40,23 @@ const Hero = () => {
         return () => clearInterval(interval); // cleanup
     }, []);
 
+    // Typewriter effect for name
+    useEffect(() => {
+        let currentIndex = 0;
+        const typingSpeed = 100; // milliseconds per character
+
+        const typeNextCharacter = () => {
+            if (currentIndex < name.length) {
+                setDisplayedName(name.slice(0, currentIndex + 1));
+                currentIndex++;
+            }
+        };
+
+        const typingInterval = setInterval(typeNextCharacter, typingSpeed);
+
+        return () => clearInterval(typingInterval);
+    }, [name]);
+
     return (
         <section className="shadow-lg p-4 sm:p-6 flex flex-col md:flex-row items-start md:items-center gap-4 sm:gap-6 bg-bg text-text">
             {/* Left Content */}
@@ -44,7 +64,10 @@ const Hero = () => {
                 <div className="flex items-start justify-between gap-4">
                     <div className="flex-1 flex flex-col justify-center">
                         <p className="text-accent-cyan mb-2 text-xs sm:text-sm">Hi, I'm {name.split(" ")[0]} 👋</p>
-                        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-text leading-tight">{name}</h1>
+                        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-text leading-tight">
+                            {displayedName}
+                            <span className="animate-pulse">|</span>
+                        </h1>
                         <div className="flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center text-text-muted text-xs sm:text-sm gap-2 sm:gap-0 sm:space-x-4 mt-2">
                             <span className="flex items-center">
                                 <MapPin className="w-4 h-4 mr-1 text-accent-red animate-pulse" />

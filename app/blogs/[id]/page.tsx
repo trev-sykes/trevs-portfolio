@@ -5,6 +5,7 @@ import rehypeHighlight from "rehype-highlight";
 import BLOGS from "@/app/data/blogs";
 import Link from "next/link";
 import Footer from "@/app/components/footer/Footer";
+import { Sparkles } from "lucide-react";
 
 // Props type for the page
 interface Props {
@@ -104,7 +105,8 @@ export default async function BlogPost({ params }: Props) {
 
                 {/* YOU MAY ALSO LIKE SECTION */}
                 <div className="mt-14">
-                    <h2 className="text-2xl font-semibold text-accent-cyan mb-4">
+                    <h2 className="text-2xl font-semibold text-accent-cyan mb-4 flex items-center gap-2">
+                        <Sparkles className="w-6 h-6" />
                         You may also like
                     </h2>
 

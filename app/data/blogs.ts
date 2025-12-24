@@ -714,7 +714,219 @@ I have found that when I follow this workflow, projects do not just work. They b
 
 Building projects is kind of like a long-term relationship with your code: invest care, iterate often, and it will grow into something really satisfying.
     `
+    },
+    {
+        id: "using-data-structures-in-backend-apis",
+        title: "Using Data Structures to Optimize Real Backend APIs",
+        date: "2025-12-23",
+        tags: ["backend", "algorithms", "data-structures", "express"],
+        excerpt: "How classic data structures like hash tables show up in real Express APIs, and how thinking about them intentionally can make your backend faster and cleaner.",
+        content: `
+### Introduction
+
+For a long time, I treated **data structures** as “interview-only knowledge.”
+
+Hash tables? Cool for LeetCode.  
+Big-O? Sure, important… somewhere else.
+
+But while building backend APIs with **Express**, something clicked:  
+I was already using data structures every day — I just wasn’t thinking about them *intentionally*.
+
+This post is about that realization: how classic data structures (especially **hash tables**) show up in real backend APIs, and how using them *on purpose* can make your code faster, cleaner, and way more scalable.
+
+---
+
+### The Naive API (Where I Started)
+
+Let’s say you have a simple Express endpoint:
+
+\`\`\`ts
+app.get("/users/:id", async (req, res) => {
+    const users = await getAllUsersFromDB();
+    const user = users.find(u => u.id === req.params.id);
+    res.json(user);
+});
+\`\`\`
+
+This works.  
+It’s readable.  
+And honestly? I wrote code like this *all the time* early on.
+
+But look closely:
+- Every request fetches **all users**
+- Every request does a **linear search**
+- Performance quietly gets worse as data grows
+
+This is where data structures sneak in.
+
+---
+
+### Hash Tables Are Already Here (You Just Don’t Notice)
+
+In JavaScript, objects and \`Map\` are **hash tables**.
+
+That means this:
+
+\`\`\`ts
+const userMap = new Map<string, User>();
+\`\`\`
+
+isn’t some academic thing — it’s a **constant-time lookup machine**.
+
+Instead of scanning arrays, you can do this:
+
+\`\`\`ts
+const userMap = new Map(users.map(user => [user.id, user]));
+const user = userMap.get(req.params.id);
+\`\`\`
+
+Boom.  
+O(1) lookups.
+
+Same data.  
+Different mindset.
+
+---
+
+### Real Example: Simple In-Memory Caching
+
+This was my “ohhh” moment.
+
+Imagine an expensive DB query:
+
+\`\`\`ts
+const cache = new Map<string, any>();
+
+app.get("/users/:id", async (req, res) => {
+    const id = req.params.id;
+
+    if (cache.has(id)) {
+        return res.json(cache.get(id));
     }
+
+    const user = await prisma.user.findUnique({ where: { id } });
+    cache.set(id, user);
+
+    res.json(user);
+});
+\`\`\`
+
+What’s happening here?
+
+- \`Map\` = hash table
+- Key = user ID
+- Value = user data
+- Lookup = **constant time**
+
+Suddenly:
+- Fewer DB hits
+- Faster responses
+- Less load overall
+
+This is not theory — this is production behavior.
+
+---
+
+### Another One: Rate Limiting With a Map
+
+Rate limiting used to sound scary to me.  
+Turns out, it’s just… a hash table.
+
+\`\`\`ts
+const requests = new Map<string, number>();
+
+app.use((req, res, next) => {
+    const ip = req.ip;
+    const count = requests.get(ip) || 0;
+
+    if (count > 100) {
+        return res.status(429).send("Too many requests");
+    }
+
+    requests.set(ip, count + 1);
+    next();
+});
+\`\`\`
+
+Again:
+- Key → IP address
+- Value → request count
+- Fast lookups
+- Simple logic
+
+This is a classic interview problem — but it’s also very real backend code.
+
+---
+
+### Where Algorithms Actually Matter in APIs
+
+Here’s what changed my thinking:
+
+Algorithms aren’t about showing off.  
+They’re about **avoiding unnecessary work**.
+
+Some real examples:
+- Hash tables → caching, deduplication, auth tokens
+- Binary search → pagination, sorted queries
+- Sets → uniqueness checks
+- Queues → background jobs
+- Divide & conquer → batching and chunking
+
+You don’t need to force them.  
+You just need to recognize when your code is *doing more work than necessary*.
+
+---
+
+### When NOT to Overthink It
+
+Important lesson I learned the hard way:
+
+> Don’t optimize before it hurts.
+
+Sometimes:
+- An array is fine
+- A loop is fine
+- Readability matters more
+
+But once something runs:
+- on every request
+- inside middleware
+- under load
+
+That’s when data structures stop being “academic” and start being **tools**.
+
+---
+
+### My Biggest Takeaways
+
+- **Hash tables are everywhere** in backend code  
+- JavaScript already gives you powerful tools (\`Map\`, \`Set\`)  
+- Performance problems often come from unnecessary repetition  
+- Algorithms help you *remove work*, not add complexity  
+- Thinking in data structures changes how you design APIs  
+
+The biggest shift wasn’t learning new syntax — it was learning to ask:  
+> “What am I repeatedly doing that I don’t need to?”
+
+---
+
+### Final Thoughts
+
+Learning algorithms used to feel disconnected from real-world coding.
+
+Now, every time I write an API, I catch myself thinking:
+- Can I cache this?
+- Can I avoid looping?
+- Can I turn this into a lookup?
+
+That’s when it all started to feel unified —  
+CS fundamentals, backend architecture, and real applications all clicking together.
+
+And honestly?  
+That’s when coding started feeling *powerful*.
+        `,
+    }
+
 ];
 
 export default BLOGS;

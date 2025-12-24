@@ -3,7 +3,7 @@ import { ExternalLink, Github } from "lucide-react";
 import Link from "next/link";
 
 interface Props {
-    id: number;
+    id: number | string;
     title: string;
     description: string;
     techStack: string[];

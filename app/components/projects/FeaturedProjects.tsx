@@ -18,7 +18,7 @@ export default function FeaturedProjects() {
                 {featuredProjects.map((project) => (
                     <ProjectCard
                         key={project.id}
-                        id={project.id}
+                        id={project.slug}
                         title={project.title}
                         description={project.description}
                         techStack={project.tech}

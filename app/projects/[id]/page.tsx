@@ -12,17 +12,26 @@ interface Props {
 // Generate static params for all projects
 export async function generateStaticParams() {
     return PROJECTS.map((project) => ({
-        id: project.id.toString(),
+        id: project.slug,
     }));
 }
+export async function generateMetadata({ params }: Props) {
+    const { id } = await params;
+    const project = PROJECTS.find((p) => p.slug === id);  // Change this line
+    if (!project) return { title: "Project Not Found – Trevor's Portfolio" };
 
+    return {
+        title: `${project.title} – Trevor's Portfolio`,
+        description: project.description,
+    };
+}
 export default async function ProjectDetail({ params }: Props) {
     const { id } = await params;
-    const project = PROJECTS.find((p) => p.id === parseInt(id));
+    const project = PROJECTS.find((p) => p.slug === id);
     if (!project) return notFound();
 
     // Exclude current project
-    const otherProjects = PROJECTS.filter(p => p.id !== parseInt(id));
+    const otherProjects = PROJECTS.filter(p => p.slug !== id);
     for (let i = otherProjects.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [otherProjects[i], otherProjects[j]] = [otherProjects[j], otherProjects[i]];

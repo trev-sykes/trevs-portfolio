@@ -7,7 +7,9 @@ import { Sparkles } from "lucide-react";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import Footer from "../components/footer/Footer";
-
+export const metadata = {
+    title: `Trevor's Portfolio | Projects`
+}
 export default function ProjectsPage() {
     return (
         <>
@@ -38,7 +40,7 @@ export default function ProjectsPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {PROJECTS.map((project) => (
                         <ProjectCard
-                            id={project.id}
+                            id={project.slug}
                             key={project.id}
                             title={project.title}
                             description={project.description}

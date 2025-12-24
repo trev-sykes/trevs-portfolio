@@ -11,7 +11,16 @@ import { Sparkles } from "lucide-react";
 interface Props {
     params: Promise<{ id: string }>;
 }
+export async function generateMetadata({ params }: Props) {
+    const { id } = await params;
+    const blog = BLOGS.find((b) => b.id === id);
+    if (!blog) return { title: "Blog Not Found – Trevor's Portfolio" };
 
+    return {
+        title: `${blog.title} – Trevor's Portfolio`,
+        description: blog.excerpt,
+    };
+}
 // Define markdown components
 const markdownComponents: Partial<Components> = {
     h1: ({ node, ...props }) => (

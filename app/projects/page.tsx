@@ -11,17 +11,22 @@ export const metadata = {
     title: `Trevor's Portfolio | Projects`
 }
 export default function ProjectsPage() {
+    // Separate projects by category
+    const deepProjects = PROJECTS.filter(p => p.category === "deep");
+    const otherProjects = PROJECTS.filter(p => p.category !== "deep");
+
+    // Optional: sort by date (newest first)
+    const sortByDateDesc = (a: any, b: any) => (b.date?.localeCompare(a.date || "") ?? 0);
+
     return (
         <>
             <Container className="py-12">
-                {/* Page Header */}
                 <SectionTitle
-                    title="All Projects"
+                    title="Projects"
                     icon={<Sparkles className="w-6 h-6 text-pink-400" />}
                     className="mb-6"
                 />
 
-                {/* Back to Home Button */}
                 <div className="mb-8">
                     <Link
                         href="/"
@@ -31,27 +36,58 @@ export default function ProjectsPage() {
                     </Link>
                 </div>
 
-                {/* Description */}
                 <p className="text-text-muted mb-8">
-                    Explore my latest creations. Click a project to see it in action!
+                    Explore my latest creations. Deep projects are highlighted to show architecture, design, and technical depth.
                 </p>
 
-                {/* Projects Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {PROJECTS.map((project) => (
-                        <ProjectCard
-                            id={project.slug}
-                            key={project.id}
-                            title={project.title}
-                            description={project.description}
-                            techStack={project.tech}
-                            liveDemo={project.liveDemo}
-                            githubLink={project.github}
-                        />
-                    ))}
-                </div>
+                {/* Deep Projects */}
+                {deepProjects.length > 0 && (
+                    <>
+                        <h2 className="text-2xl font-semibold text-accent-cyan mb-4">Deep Projects</h2>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                            {deepProjects.sort(sortByDateDesc).map((project) => (
+                                <ProjectCard
+                                    key={project.id}
+                                    id={project.slug}
+                                    title={project.title}
+                                    logo={project?.logo}
+                                    description={project.description}
+                                    techStack={project.tech}
+                                    liveDemo={project.liveDemo}
+                                    githubLink={project.github}
+                                    category={project.category}
+                                    date={project.date}
+                                />
+                            ))}
+                        </div>
+                    </>
+                )}
+
+                {/* Other Projects */}
+                {otherProjects.length > 0 && (
+                    <>
+                        <h2 className="text-2xl font-semibold text-accent-cyan mb-4">Archived / Shallow Projects</h2>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {otherProjects.sort(sortByDateDesc).map((project) => (
+                                <ProjectCard
+                                    key={project.id}
+                                    id={project.slug}
+                                    title={project.title}
+                                    logo={project?.logo}
+                                    description={project.description}
+                                    techStack={project.tech}
+                                    liveDemo={project.liveDemo}
+                                    githubLink={project.github}
+                                    category={project?.category}
+                                    date={project.date}
+                                />
+                            ))}
+                        </div>
+                    </>
+                )}
             </Container>
             <Footer />
         </>
     );
 }
+

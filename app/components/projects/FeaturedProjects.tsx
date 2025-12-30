@@ -20,10 +20,13 @@ export default function FeaturedProjects() {
                         key={project.id}
                         id={project.slug}
                         title={project.title}
+                        logo={project?.logo}
                         description={project.description}
                         techStack={project.tech}
                         liveDemo={project.liveDemo}
                         githubLink={project.github}
+                        category={project?.category}
+                        date={project?.date}
                     />
                 ))}
             </div>

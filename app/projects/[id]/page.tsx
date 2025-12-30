@@ -4,20 +4,19 @@ import { ExternalLink, Github, ArrowLeft, Sparkles } from "lucide-react";
 import PROJECTS from "@/app/data/projects";
 import Footer from "@/app/components/footer/Footer";
 
-// Props type for the page
 interface Props {
     params: Promise<{ id: string }>;
 }
 
-// Generate static params for all projects
 export async function generateStaticParams() {
     return PROJECTS.map((project) => ({
         id: project.slug,
     }));
 }
+
 export async function generateMetadata({ params }: Props) {
     const { id } = await params;
-    const project = PROJECTS.find((p) => p.slug === id);  // Change this line
+    const project = PROJECTS.find((p) => p.slug === id);
     if (!project) return { title: "Project Not Found – Trevor's Portfolio" };
 
     return {
@@ -25,38 +24,90 @@ export async function generateMetadata({ params }: Props) {
         description: project.description,
     };
 }
+
 export default async function ProjectDetail({ params }: Props) {
     const { id } = await params;
     const project = PROJECTS.find((p) => p.slug === id);
     if (!project) return notFound();
 
-    // Exclude current project
-    const otherProjects = PROJECTS.filter(p => p.slug !== id);
+    const otherProjects = PROJECTS.filter((p) => p.slug !== id);
     for (let i = otherProjects.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [otherProjects[i], otherProjects[j]] = [otherProjects[j], otherProjects[i]];
     }
     const recommended = otherProjects.slice(0, 2);
 
+    // Dynamically generate Key Features
+    const keyFeatures = [
+        `Built with modern technologies: ${project.tech.slice(0, 3).join(", ")}`,
+        "Responsive design optimized for all devices",
+        project.hosting ? `Deployed on: ${project.hosting.join(", ")}` : null,
+        project.summary ? "Well-planned architecture and data modeling" : null,
+        project.learnings && project.learnings.length > 0 ? "Notable learnings applied in development" : null,
+    ].filter(Boolean);
+
     return (
         <>
             <section className="max-w-4xl mx-auto p-6 sm:p-8 min-h-screen">
                 {/* Navigation */}
                 <div className="flex justify-between items-center mb-6">
-                    <Link href="/" className="text-accent-cyan hover:underline text-sm sm:text-base flex items-center gap-2">
+                    <Link
+                        href="/"
+                        className="text-accent-cyan hover:underline text-sm sm:text-base flex items-center gap-2"
+                    >
                         <ArrowLeft className="w-4 h-4" /> Home
                     </Link>
-                    <Link href="/projects" className="text-accent-cyan hover:underline text-sm sm:text-base">
+                    <Link
+                        href="/projects"
+                        className="text-accent-cyan hover:underline text-sm sm:text-base"
+                    >
                         See All Projects
                     </Link>
                 </div>
 
                 {/* Project Header */}
                 <div className="mb-8">
-                    <h1 className="text-3xl sm:text-4xl font-bold mb-4 text-text">{project.title}</h1>
+                    <h1 className="text-3xl sm:text-4xl font-bold text-text flex items-center gap-3">
+                        {/* Optional Logo */}
+                        {project.logo && (
+                            <img
+                                src={project.logo}
+                                alt={`${project.title} logo`}
+                                className="w-10 h-10 object-contain rounded-md"
+                            />
+                        )}
+
+                        {project.title}
+                    </h1>
+
+                    {/* Category & Date Badge */}
+                    <div className="flex flex-wrap gap-2 mt-2">
+                        {project.category && (
+                            <span
+                                className={`
+                px-3 py-1 text-xs font-mono rounded-full
+                ${project.category === "deep"
+                                        ? "bg-accent-cyan text-bg"
+                                        : project.category === "shallow"
+                                            ? "bg-accent-blue text-bg"
+                                            : "bg-accent-red text-bg"
+                                    }
+            `}
+                            >
+                                {project.category.toUpperCase()}
+                            </span>
+                        )}
+
+                        {project.date && (
+                            <span className="px-3 py-1 text-xs font-mono bg-surface-dark text-text rounded-full">
+                                Completed: {project.date}
+                            </span>
+                        )}
+                    </div>
+
 
                     {/* Tech Stack */}
-                    <div className="flex flex-wrap gap-2 mb-2">
+                    <div className="flex flex-wrap gap-2 mt-2">
                         {project.tech.map((tech, i) => (
                             <span
                                 key={i}
@@ -67,22 +118,8 @@ export default async function ProjectDetail({ params }: Props) {
                         ))}
                     </div>
 
-                    {/* Hosting Stack */}
-                    {project.hosting && project.hosting.length > 0 && (
-                        <div className="flex flex-wrap gap-2 mb-6">
-                            {project.hosting.map((host, i) => (
-                                <span
-                                    key={i}
-                                    className="px-3 py-1 text-xs font-mono bg-surface-dark border border-border-dark text-accent-cyan rounded-full"
-                                >
-                                    {host}
-                                </span>
-                            ))}
-                        </div>
-                    )}
-
                     {/* Action Buttons */}
-                    <div className="flex flex-wrap gap-4">
+                    <div className="flex flex-wrap gap-4 mt-4">
                         <a
                             href={project.liveDemo}
                             target="_blank"
@@ -114,32 +151,48 @@ export default async function ProjectDetail({ params }: Props) {
                     </div>
                 )}
 
-                {/* Project Overview */}
+                {/* Overview */}
                 <div className="mb-12">
                     <h2 className="text-2xl font-semibold text-accent-cyan mb-4">Overview</h2>
-                    <p className="text-text leading-relaxed mb-4">
-                        {project.description}
-                    </p>
+                    <p className="text-text leading-relaxed">{project.description}</p>
                 </div>
 
-                {/* Key Features */}
+                {/* Deep Dive Sections */}
+                {project.summary && (
+                    <div className="mb-12">
+                        <h2 className="text-2xl font-semibold text-accent-cyan mb-4">Summary</h2>
+                        <p className="text-text leading-relaxed">{project.summary}</p>
+                    </div>
+                )}
+
+                {project.challenges && (
+                    <div className="mb-12">
+                        <h2 className="text-2xl font-semibold text-accent-cyan mb-4">Challenges</h2>
+                        <p className="text-text leading-relaxed">{project.challenges}</p>
+                    </div>
+                )}
+
+                {project.learnings && project.learnings.length > 0 && (
+                    <div className="mb-12">
+                        <h2 className="text-2xl font-semibold text-accent-cyan mb-4">Key Learnings</h2>
+                        <ul className="list-disc list-inside text-text space-y-2">
+                            {project.learnings.map((learning, i) => (
+                                <li key={i}>{learning}</li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
+
+                {/* Key Features (Dynamic) */}
                 <div className="mb-12">
                     <h2 className="text-2xl font-semibold text-accent-cyan mb-4">Key Features</h2>
                     <ul className="space-y-3 text-text">
-                        <li className="flex items-start gap-3">
-                            <span className="text-accent-green mt-1">✓</span>
-                            <span>Built with modern technologies: {project.tech.slice(0, 3).join(", ")}</span>
-                        </li>
-                        <li className="flex items-start gap-3">
-                            <span className="text-accent-green mt-1">✓</span>
-                            <span>Responsive design optimized for all devices</span>
-                        </li>
-                        {project.hosting && (
-                            <li className="flex items-start gap-3">
+                        {keyFeatures.map((feature, i) => (
+                            <li key={i} className="flex items-start gap-3">
                                 <span className="text-accent-green mt-1">✓</span>
-                                <span>Deployed on: {project.hosting.join(", ")}</span>
+                                <span>{feature}</span>
                             </li>
-                        )}
+                        ))}
                     </ul>
                 </div>
 
@@ -148,9 +201,18 @@ export default async function ProjectDetail({ params }: Props) {
                     <h2 className="text-2xl font-semibold text-accent-cyan mb-4">Technical Highlights</h2>
                     <div className="bg-surface-dark border border-border-dark rounded-lg p-6">
                         <p className="text-text-muted mb-4">
-                            This project showcases {project.tech.join(", ")} working together to create a seamless user experience.
-                            The architecture emphasizes modern best practices, type safety, and performance optimization.
+                            This project demonstrates how {project.tech.join(", ")} work together to create a seamless, high-performance user experience.
                         </p>
+                        {project.summary && (
+                            <p className="text-text-muted mb-4">
+                                Key architectural and design choices include: {project.summary}
+                            </p>
+                        )}
+                        {project.learnings && project.learnings.length > 0 && (
+                            <p className="text-text-muted mb-4">
+                                Lessons applied from development include: {project.learnings.join(", ")}
+                            </p>
+                        )}
                         <div className="bg-bg border border-border-dark rounded p-4">
                             <p className="text-accent-blue-light text-sm mb-2">Tech Stack:</p>
                             <ul className="list-disc list-inside text-text-muted text-sm space-y-1">
@@ -174,7 +236,7 @@ export default async function ProjectDetail({ params }: Props) {
                             {recommended.map((rec) => (
                                 <Link
                                     key={rec.id}
-                                    href={`/projects/${rec.id}`}
+                                    href={`/projects/${rec.slug}`}
                                     className="group bg-surface-dark border border-border-dark rounded-lg p-5 shadow-md hover:shadow-xl hover:shadow-accent-cyan/20 hover:-translate-y-1 transition-all duration-300"
                                 >
                                     <h3 className="text-lg font-semibold text-text group-hover:text-accent-cyan mb-1">

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ExternalLink, Github, ArrowLeft, Sparkles } from "lucide-react";
 import PROJECTS from "@/app/data/projects";
 import Footer from "@/app/components/footer/Footer";
+import Image from "next/image";
 
 interface Props {
     params: Promise<{ id: string }>;
@@ -144,12 +145,15 @@ export default async function ProjectDetail({ params }: Props) {
 
                 {/* Project Thumbnail */}
                 {project.thumbnail && (
-                    <div className="mb-8 rounded-lg overflow-hidden border border-border-dark shadow-xl">
-                        <img
-                            loading="lazy"
+                    <div className="mb-8 rounded-lg overflow-hidden border border-border-dark shadow-xl relative w-full h-[400px] sm:h-[500px]">
+                        <Image
                             src={project.thumbnail}
                             alt={project.title}
-                            className="w-full h-auto"
+                            fill
+                            style={{ objectFit: "cover" }}
+                            placeholder="blur"
+                            blurDataURL="/images/placeholder.png" // tiny placeholder image or base64
+                            priority={true} // optional, if you want it to load ASAP
                         />
                     </div>
                 )}

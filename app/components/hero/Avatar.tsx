@@ -1,9 +1,10 @@
+import Image from "next/image";
 import React from "react";
 
 interface Props {
     name: string;
     size?: "sm" | "md" | "lg";
-    frameThickness?: number; // dynamic frame thickness in px
+    frameThickness?: number;
 }
 
 const SIZE_CLASSES = {
@@ -13,23 +14,22 @@ const SIZE_CLASSES = {
 };
 
 const FRAME_COLORS = [
-    "#7adfe7", // cyan
-    "#60a5fa", // blue
-    "#34d399", // green
-    "#10b981", // green-dark
-    "#f87171", // red
-    "#a855f7", // purple
-    "#f97316", // orange
-    "#9333ea", // purple-dark
-    "#7dd3fc", // blue-light
-    "#67e8f9", // cyan-light
+    "#7adfe7",
+    "#60a5fa",
+    "#34d399",
+    "#10b981",
+    "#f87171",
+    "#a855f7",
+    "#f97316",
+    "#9333ea",
+    "#7dd3fc",
+    "#67e8f9",
 ];
 
 export default function Avatar({ name, size = "md", frameThickness = 1 }: Props) {
-    const [imageError, setImageError] = React.useState(false);
     const [frameColor, setFrameColor] = React.useState<string | null>(null);
+    const [imageError, setImageError] = React.useState(false);
 
-    // Pick a random color only on the client
     React.useEffect(() => {
         setFrameColor(FRAME_COLORS[Math.floor(Math.random() * FRAME_COLORS.length)]);
     }, []);
@@ -40,10 +40,7 @@ export default function Avatar({ name, size = "md", frameThickness = 1 }: Props)
         .join("")
         .slice(0, 3);
 
-    if (frameColor === null) {
-        // Render nothing or a placeholder until client mounts
-        return null;
-    }
+    if (frameColor === null) return null;
 
     return (
         <div
@@ -65,14 +62,18 @@ export default function Avatar({ name, size = "md", frameThickness = 1 }: Props)
 
             {/* Image or fallback */}
             {!imageError ? (
-                <img
+                <Image
                     src="/mugshot.jpeg"
                     alt={name}
-                    className="relative z-10 w-full h-full object-cover"
+                    fill
+                    style={{ objectFit: "cover" }}
+                    placeholder="blur"
+                    blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwIiBoZWlnaHQ9IjEwIiBmaWxsPSIjY2NjY2NjIiAvPjwvc3ZnPg=="
                     onError={() => setImageError(true)}
+                    className="relative z-10"
                 />
             ) : (
-                <div className="relative z-10 flex h-full w-full items-center justify-center font-bold text-white">
+                <div className="relative z-10 flex h-full w-full items-center justify-center font-bold text-white bg-gray-500">
                     {initials}
                 </div>
             )}

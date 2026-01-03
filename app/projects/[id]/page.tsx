@@ -145,18 +145,19 @@ export default async function ProjectDetail({ params }: Props) {
 
                 {/* Project Thumbnail */}
                 {project.thumbnail && (
-                    <div className="mb-8 rounded-lg overflow-hidden border border-border-dark shadow-xl relative w-full h-[400px] sm:h-[500px]">
+                    <div className="mb-8 rounded-lg overflow-hidden border border-border-dark shadow-xl relative w-full aspect-[16/9] sm:aspect-[4/3]">
                         <Image
                             src={project.thumbnail}
                             alt={project.title}
                             fill
                             style={{ objectFit: "cover" }}
                             placeholder="blur"
-                            blurDataURL="/images/placeholder.png" // tiny placeholder image or base64
-                            priority={true} // optional, if you want it to load ASAP
+                            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAAFklEQVR42mNk+M+ACDAwMDAwAAPnAAB9+9qQAAAAAElFTkSuQmCC"
+                            priority={true}
                         />
                     </div>
                 )}
+
 
                 {/* Overview */}
                 <div className="mb-12">

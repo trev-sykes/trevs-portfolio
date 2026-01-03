@@ -100,7 +100,7 @@ const Hero = () => {
                 <p className="text-sm sm:text-base text-text-muted leading-relaxed mt-4">{bioLong}</p>
 
                 <div className="mt-6">
-                    <ContactButtons email={email} github={github} linkedin={linkedin} twitter={twitter} />
+                    <ContactButtons email={email} github={github} linkedin={linkedin} twitter={twitter} resume="/resume.pdf" />
                 </div>
             </div>
 

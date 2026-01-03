@@ -1,3 +1,5 @@
+import { Skill } from "./skill";
+
 export interface Project {
     id: number;
     slug: string;
@@ -11,7 +13,7 @@ export interface Project {
     liveDemo: string;
     github: string;
     thumbnail?: string;
-    tech: string[];
+    tech: Skill[];
     hosting?: string[];
     category?: "deep" | "shallow" | "archived";
     date?: string; // format: YYYY-MM

@@ -14,6 +14,8 @@ export default function SkillItem({ skill }: { skill: Skill }) {
                 flex-shrink-0 mx-2 sm:mx-4
                 cursor-pointer
             `}
+            role="img"
+            aria-label={skill.name} // announces the skill name
         >
             <span>{skill.icon}</span>
             <span className="whitespace-nowrap">{skill.name}</span>

@@ -1,4 +1,4 @@
-import SKILLS from "@/app/data/skills";
+import { SKILLS } from "@/app/data/skills";
 import MarqueeRow from "./MarqueeRow";
 import { Flame } from "lucide-react";
 import SectionTitle from "../ui/SectionTitle";

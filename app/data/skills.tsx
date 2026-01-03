@@ -1,30 +1,96 @@
+import { BrandIcon } from "@/app/components/ui/BrandIcon";
+import { Skill, SkillKey } from "@/app/types/skill";
+import { Atom } from "lucide-react";
+
 import {
-    Code, FileText, Server, TrendingUp,
-    Zap, Layers, GitPullRequest, CheckCircle,
-    Database, Aperture, Cloud, Atom
-} from 'lucide-react';
-import { Skill } from "../types/skill";
+    siReact,
+    siNextdotjs,
+    siTypescript,
+    siTailwindcss,
+    siFramer,
+    siNodedotjs,
+    siExpress,
+    siPrisma,
+    siGraphql,
+    siRender,
+    siVercel,
+    siVite,
+    siGithub,
+} from "simple-icons";
 
-const SKILLS: Skill[] = [
-    // Frontend
-    { name: "React", icon: <Zap className="w-5 h-5 text-cyan-400" /> },
-    { name: "Next.js", icon: <Layers className="w-5 h-5 text-white" /> },
-    { name: "TypeScript", icon: <Code className="w-5 h-5 text-blue-400" /> },
-    { name: "Tailwind CSS", icon: <TrendingUp className="w-5 h-5 text-teal-400" /> },
-    { name: "Framer Motion", icon: <Aperture className="w-5 h-5 text-pink-400" /> },
-    { name: "Zustand", icon: <Atom className="w-5 h-5 text-yellow-400" /> }, // ✅ Added
+const iconClass = "w-5 h-5";
 
-    // Backend & DB
-    { name: "Node.js", icon: <Server className="w-5 h-5 text-green-400" /> },
-    { name: "Express", icon: <FileText className="w-5 h-5 text-yellow-400" /> },
-    { name: "Prisma", icon: <Database className="w-5 h-5 text-indigo-400" /> },
-    { name: "GraphQL", icon: <Atom className="w-5 h-5 text-pink-500" /> }, // ✅ Added
+export const SKILL_MAP: Record<SkillKey, Skill> = {
+    react: {
+        key: "react",
+        name: "React",
+        icon: <BrandIcon path={siReact.path} className={`${iconClass} text-cyan-400`} />,
+    },
+    next: {
+        key: "next",
+        name: "Next.js",
+        icon: <BrandIcon path={siNextdotjs.path} className={`${iconClass} text-white`} />,
+    },
+    typescript: {
+        key: "typescript",
+        name: "TypeScript",
+        icon: <BrandIcon path={siTypescript.path} className={`${iconClass} text-blue-400`} />,
+    },
+    tailwind: {
+        key: "tailwind",
+        name: "Tailwind CSS",
+        icon: <BrandIcon path={siTailwindcss.path} className={`${iconClass} text-teal-400`} />,
+    },
+    framer: {
+        key: "framer",
+        name: "Framer Motion",
+        icon: <BrandIcon path={siFramer.path} className={`${iconClass} text-pink-400`} />,
+    },
+    zustand: {
+        key: "zustand",
+        name: "Zustand",
+        icon: <Atom className={`${iconClass} text-yellow-400`} />,
+    },
+    node: {
+        key: "node",
+        name: "Node.js",
+        icon: <BrandIcon path={siNodedotjs.path} className={`${iconClass} text-green-400`} />,
+    },
+    express: {
+        key: "express",
+        name: "Express",
+        icon: <BrandIcon path={siExpress.path} className={`${iconClass} text-gray-300`} />,
+    },
+    prisma: {
+        key: "prisma",
+        name: "Prisma",
+        icon: <BrandIcon path={siPrisma.path} className={`${iconClass} text-indigo-400`} />,
+    },
+    graphql: {
+        key: "graphql",
+        name: "GraphQL",
+        icon: <BrandIcon path={siGraphql.path} className={`${iconClass} text-pink-500`} />,
+    },
+    render: {
+        key: "render",
+        name: "Render",
+        icon: <BrandIcon path={siRender.path} className={`${iconClass} text-sky-400`} />,
+    },
+    vercel: {
+        key: "vercel",
+        name: "Vercel",
+        icon: <BrandIcon path={siVercel.path} className={`${iconClass} text-white`} />,
+    },
+    vite: {
+        key: "vite",
+        name: "Vite",
+        icon: <BrandIcon path={siVite.path} className={`${iconClass} text-orange-400`} />,
+    },
+    github: {
+        key: "github",
+        name: "GitHub",
+        icon: <BrandIcon path={siGithub.path} className={`${iconClass} text-gray-200`} />,
+    },
+};
 
-    // Hosting & Tools
-    { name: "Render", icon: <Cloud className="w-5 h-5 text-sky-400" /> }, // ✅ Added
-    { name: "Vercel", icon: <Layers className="w-5 h-5 text-white" /> },
-    { name: "Vite", icon: <CheckCircle className="w-5 h-5 text-orange-400" /> },
-    { name: "Git / GitHub", icon: <GitPullRequest className="w-5 h-5 text-red-400" /> },
-];
-
-export default SKILLS;
+export const SKILLS = Object.values(SKILL_MAP);

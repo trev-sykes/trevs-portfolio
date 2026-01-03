@@ -108,16 +108,19 @@ export default async function ProjectDetail({ params }: Props) {
 
                     {/* Tech Stack */}
                     <div className="flex flex-wrap gap-2 mt-2">
-                        {project.tech.map((tech, i) => (
-                            <span
-                                key={i}
-                                className="px-3 py-1 text-xs font-mono bg-surface-dark border border-border-dark text-accent-blue-light rounded-full"
+                        {project.tech.map((tech) => (
+                            <div
+                                key={tech.key}
+                                className="p-2 bg-surface-dark border border-border-dark rounded-lg 
+                       hover:border-accent-cyan hover:bg-accent-cyan/10 transition-all flex items-center justify-center"
+                                title={tech.name}
+                                role="img"
+                                aria-label={tech.name}
                             >
-                                {tech}
-                            </span>
+                                {tech.icon}
+                            </div>
                         ))}
                     </div>
-
                     {/* Action Buttons */}
                     <div className="flex flex-wrap gap-4 mt-4">
                         <a
@@ -216,8 +219,8 @@ export default async function ProjectDetail({ params }: Props) {
                         <div className="bg-bg border border-border-dark rounded p-4">
                             <p className="text-accent-blue-light text-sm mb-2">Tech Stack:</p>
                             <ul className="list-disc list-inside text-text-muted text-sm space-y-1">
-                                {project.tech.map((tech, i) => (
-                                    <li key={i}>{tech}</li>
+                                {project.tech.map((tech) => (
+                                    <li key={tech.key}>{tech.name}</li>
                                 ))}
                             </ul>
                         </div>
@@ -244,9 +247,12 @@ export default async function ProjectDetail({ params }: Props) {
                                     </h3>
                                     <p className="text-text-muted text-sm mb-3">{rec.mobileDescription}</p>
                                     <div className="flex flex-wrap gap-2">
-                                        {rec.tech.slice(0, 3).map((tech, i) => (
-                                            <span key={i} className="text-xs px-2 py-1 bg-bg rounded text-accent-blue-light">
-                                                {tech}
+                                        {rec.tech.slice(0, 3).map((tech) => (
+                                            <span
+                                                key={tech.key}
+                                                className="text-xs px-2 py-1 bg-bg rounded text-accent-blue-light"
+                                            >
+                                                {tech.name}
                                             </span>
                                         ))}
                                         {rec.hosting?.map((host, i) => (

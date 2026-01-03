@@ -1,4 +1,5 @@
 import { Project } from "../types/project";
+import { SKILL_MAP } from "./skills";
 
 const PROJECTS: Project[] = [
     {
@@ -21,7 +22,7 @@ const PROJECTS: Project[] = [
         liveDemo: "https://feels-aggregate.vercel.app/",
         github: "https://github.com/trev-sykes/feels-aggregate",
         thumbnail: "/projects/feels-aggregate.png",
-        tech: ["Next.js", "Prisma", "PostgreSQL"],
+        tech: [SKILL_MAP.next, SKILL_MAP.prisma],
         hosting: ["Vercel", "Neon"],
         category: 'deep',
         date: '2025-12'
@@ -48,13 +49,12 @@ const PROJECTS: Project[] = [
         github: "https://github.com/trev-sykes/ChatRooms",
         thumbnail: "/projects/chatrooms.png",
         tech: [
-            "React",
-            "TypeScript",
-            "Express.js",
-            "Prisma",
-            "PostgreSQL",
-            "Framer Motion",
-            "Vite"
+            SKILL_MAP.react,
+            SKILL_MAP.typescript,
+            SKILL_MAP.express,
+            SKILL_MAP.prisma,
+            SKILL_MAP.framer,
+            SKILL_MAP.vite
         ],
         hosting: ["Vercel", "Render", "Neon"],
         category: 'deep',
@@ -72,7 +72,13 @@ const PROJECTS: Project[] = [
         liveDemo: "https://question-everything.vercel.app/",
         github: "https://github.com/trev-sykes/question-everything",
         thumbnail: "/projects/question-everything.png",
-        tech: ["React", "TypeScript", "Vite", "Framer Motion", "Tailwind CSS"],
+        tech: [
+            SKILL_MAP.react,
+            SKILL_MAP.typescript,
+            SKILL_MAP.vite,
+            SKILL_MAP.framer,
+            SKILL_MAP.tailwind
+        ],
         hosting: ["Vercel"],
         category: 'deep',
         date: '2025-04'
@@ -89,7 +95,14 @@ const PROJECTS: Project[] = [
         liveDemo: "https://nostromo-notes.vercel.app/",
         github: "https://github.com/trev-sykes/nostromo-notes",
         thumbnail: "/projects/nostromo-notes.png",
-        tech: ["React", "TypeScript", "Vite", "Zustand", "Framer Motion", "Tailwind CSS"],
+        tech: [
+            SKILL_MAP.react,
+            SKILL_MAP.typescript,
+            SKILL_MAP.vite,
+            SKILL_MAP.zustand,
+            SKILL_MAP.framer,
+            SKILL_MAP.tailwind
+        ],
         hosting: ["Vercel"],
         category: 'shallow',
         date: '2025-01'
@@ -105,7 +118,13 @@ const PROJECTS: Project[] = [
         liveDemo: "https://home-page-template.vercel.app/",
         github: "https://github.com/trev-sykes/home-page-template",
         thumbnail: "/projects/home-page.png",
-        tech: ["React", "TypeScript", "Tailwind CSS", "Vite", "Framer Motion"],
+        tech: [
+            SKILL_MAP.react,
+            SKILL_MAP.typescript,
+            SKILL_MAP.vite,
+            SKILL_MAP.framer,
+            SKILL_MAP.tailwind
+        ],
         hosting: ["Vercel"],
         category: 'shallow',
         date: '2024-11'
@@ -122,7 +141,13 @@ const PROJECTS: Project[] = [
         liveDemo: "https://bonding-curve-asset-simulator.vercel.app/",
         github: "https://github.com/trev-sykes/BondingCurveSimulator",
         thumbnail: "/projects/bonding-curve.png",
-        tech: ["React", "TypeScript", "ReCharts", "Material UI", "Vite"],
+        tech: [
+            SKILL_MAP.react,
+            SKILL_MAP.typescript,
+            // RECHARTS
+            // MATERIAL UI
+            SKILL_MAP.vite
+        ],
         hosting: ["Vercel"],
         category: 'archived',
         date: '2024-03'
@@ -139,7 +164,12 @@ const PROJECTS: Project[] = [
         liveDemo: "https://stablecoin-protocol.vercel.app/",
         github: "https://github.com/trev-sykes/Stablecoin-Protocol",
         thumbnail: "/projects/stablecoin.png",
-        tech: ["Solidity", "React", "TypeScript", "Ethers.js", "Chainlink", "Vite"],
+        tech: [
+            SKILL_MAP.react,
+            SKILL_MAP.vite,
+            // SOLIDITY
+            // ETHERS
+        ],
         hosting: ["Sepolia Testnet", "Vercel"],
         category: 'archived',
         date: '2024-01'
@@ -155,7 +185,15 @@ const PROJECTS: Project[] = [
         liveDemo: "https://hype-it.vercel.app/",
         github: "https://github.com/trev-sykes/hype-dex",
         thumbnail: "/projects/hype-dex.png",
-        tech: ["React", "TypeScript", "Solidity", "Foundry", "Wagmi", "Ethers.js", "Vite"],
+        tech: [
+            SKILL_MAP.react,
+            SKILL_MAP.typescript,
+            SKILL_MAP.vite
+            //SOLIDITY
+            //FOUNDRY
+            //WAGMI
+            //ETHERS
+        ],
         hosting: ["Ethereum Mainnet", "Vercel"],
         category: 'archived',
         date: '2023-11'
@@ -172,7 +210,14 @@ const PROJECTS: Project[] = [
         liveDemo: "https://proof-of-regret.vercel.app/",
         github: "https://github.com/trev-sykes/proof-of-regret",
         thumbnail: "/projects/proof-of-regret.png",
-        tech: ["React", "TypeScript", "Solidity", "Ethers.js", "Vite", "Tailwind CSS"],
+        tech: [
+            SKILL_MAP.react,
+            SKILL_MAP.typescript,
+            SKILL_MAP.vite,
+            SKILL_MAP.tailwind,
+            //SOLIDITY
+            //ETHERS
+        ],
         hosting: ["Arbitrum Testnet", "Vercel"],
         category: 'archived',
         date: '2023-08'

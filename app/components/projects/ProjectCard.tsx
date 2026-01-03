@@ -1,12 +1,13 @@
 "use client"
 import { ExternalLink, Github } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { Skill } from "@/app/types/skill";
 
 interface Props {
     id: number | string;
     title: string;
     description: string;
-    techStack: string[];
+    techStack: Skill[];
     liveDemo: string;
     githubLink: string;
     logo?: string;
@@ -73,15 +74,19 @@ export default function ProjectCard({
                 {date && <p className="text-xs text-text-muted mt-1 mb-4">Completed: {date}</p>}
                 <p className="text-xs sm:text-sm text-text-muted mb-4">{description}</p>
 
-                {/* Tech Stack */}
-                <div className="flex flex-wrap gap-2 mb-4">
-                    {techStack.slice(0, 3).map((tech, i) => (
-                        <span
-                            key={i}
-                            className="px-3 py-1 text-xs font-mono bg-surface-dark border border-border-dark text-accent-blue-light rounded-full hover:bg-accent-cyan-light/20 transition-colors"
+                {/* Tech Stack - Icons only */}
+                <div className="flex flex-wrap gap-3 mb-4">
+                    {techStack.slice(0, 3).map((tech) => (
+                        <div
+                            key={tech.key}
+                            className="p-2 bg-surface-dark border border-border-dark rounded-lg 
+                       hover:border-accent-cyan hover:bg-accent-cyan/10 transition-all"
+                            title={tech.name}
+                            role="img"
+                            aria-label={tech.name}
                         >
-                            {tech}
-                        </span>
+                            {tech.icon}
+                        </div>
                     ))}
                 </div>
             </div>

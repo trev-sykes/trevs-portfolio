@@ -3,9 +3,9 @@ import { GraphQLClient, gql } from 'graphql-request';
 const endpoint = 'https://api.github.com/graphql';
 
 const graphQLClient = new GraphQLClient(endpoint, {
-    headers: {
-        authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
-    },
+  headers: {
+    authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+  },
 });
 
 export const GET_CONTRIBUTIONS = gql`
@@ -28,6 +28,6 @@ export const GET_CONTRIBUTIONS = gql`
 `;
 
 export const fetchContributions = async (username: any) => {
-    const data = await graphQLClient.request(GET_CONTRIBUTIONS, { username });
-    return data.user.contributionsCollection.contributionCalendar;
+  const data = await graphQLClient.request(GET_CONTRIBUTIONS, { username });
+  return data.user.contributionsCollection.contributionCalendar;
 };

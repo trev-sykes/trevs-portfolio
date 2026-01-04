@@ -6,46 +6,78 @@ type ContributionMonth = {
     count: number;
 };
 
-const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+type ContributionCalendar = {
+    weeks: {
+        contributionDays: {
+            date: string;
+            contributionCount: number;
+        }[];
+    }[];
+};
+
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 interface Props {
     username: string;
 }
 
-export default async function ContributionGraph({ username }: Props) {
-    const calendar = await fetchContributions(username);
+/* ----------------------------- helpers ----------------------------- */
 
-    // Aggregate contributions per month using UTC to avoid timezone shifts
+function aggregateMonthlyContributions(calendar: ContributionCalendar): ContributionMonth[] {
     const monthlyMap: Record<number, number> = {};
 
-    calendar.weeks.forEach((week: any) => {
-        week.contributionDays.forEach((day: any) => {
-            const date = new Date(day.date);
-            const monthUTC = date.getUTCMonth(); // <-- use UTC month
+    for (const week of calendar.weeks) {
+        for (const day of week.contributionDays) {
+            const monthUTC = new Date(day.date).getUTCMonth();
             monthlyMap[monthUTC] = (monthlyMap[monthUTC] || 0) + day.contributionCount;
-        });
+        }
+    }
 
-    });
+    const currentMonthUTC = new Date().getUTCMonth();
 
-    // Map to displayable month data
-    const now = new Date();
-    const currentMonthUTC = now.getUTCMonth();
-
-    const monthlyData: ContributionMonth[] = months
-        .map((month, idx) => ({ month, count: monthlyMap[idx] || 0 }))
+    return MONTHS
+        .map((month, idx) => ({
+            month,
+            count: monthlyMap[idx] ?? 0,
+        }))
         .filter((_, idx) => idx <= currentMonthUTC);
+}
 
+function getColor(count: number, max: number) {
+    if (max === 0 || count === 0) return 'bg-surface';
+    if (count < max * 0.25) return 'bg-accent-green-dark';
+    if (count < max * 0.5) return 'bg-accent-green';
+    if (count < max * 0.75) return 'bg-accent-green/80';
+    return 'bg-accent-green/60';
+}
 
-    const totalContributions = monthlyData.reduce((acc, m) => acc + m.count, 0);
-    const maxCount = Math.max(...monthlyData.map(d => d.count));
+/* ----------------------------- component ----------------------------- */
 
-    const getColor = (count: number) => {
-        if (count === 0) return 'bg-surface';
-        if (count < maxCount * 0.25) return 'bg-accent-green-dark';
-        if (count < maxCount * 0.5) return 'bg-accent-green';
-        if (count < maxCount * 0.75) return 'bg-accent-green/80';
-        return 'bg-accent-green/60';
-    };
+export default async function ContributionGraph({ username }: Props) {
+    let calendar: ContributionCalendar;
+
+    try {
+        calendar = await fetchContributions(username);
+    } catch (error) {
+        if (process.env.NODE_ENV === 'development') {
+            console.warn('GitHub contributions unavailable:', error);
+        }
+
+        return (
+            <section className="shadow-lg p-4 sm:p-6">
+                <h2 className="text-xl sm:text-2xl font-bold text-text mb-4 flex items-center gap-2">
+                    <span>💻</span> Code Pulse (GitHub Contributions)
+                </h2>
+                <p className="text-sm text-text-muted">
+                    GitHub contributions unavailable (offline or API error).
+                </p>
+            </section>
+        );
+    }
+
+    const monthlyData = aggregateMonthlyContributions(calendar);
+    const totalContributions = monthlyData.reduce((sum, m) => sum + m.count, 0);
+    const maxCount = Math.max(...monthlyData.map(m => m.count), 0);
 
     return (
         <section className="shadow-lg p-4 sm:p-6">
@@ -56,7 +88,9 @@ export default async function ContributionGraph({ username }: Props) {
             <div className="overflow-x-auto pb-4">
                 <div className="flex justify-between text-xs sm:text-sm text-text-muted mb-2 min-w-[480px]">
                     {monthlyData.map((d, i) => (
-                        <span key={`${d.month}-${i}`} className="flex-1 text-center">{d.month}</span>
+                        <span key={`${d.month}-${i}`} className="flex-1 text-center">
+                            {d.month}
+                        </span>
                     ))}
                 </div>
 
@@ -64,8 +98,11 @@ export default async function ContributionGraph({ username }: Props) {
                     {monthlyData.map((d, i) => (
                         <div
                             key={`${d.month}-${i}`}
-                            className={`relative rounded-sm transition-all duration-200 cursor-pointer ${getColor(d.count)}`}
-                            style={{ height: `${(d.count / maxCount) * 100}%`, flex: 1 }}
+                            className={`relative rounded-sm transition-all duration-200 cursor-pointer ${getColor(d.count, maxCount)}`}
+                            style={{
+                                height: maxCount ? `${(d.count / maxCount) * 100}%` : '0%',
+                                flex: 1,
+                            }}
                             title={`${d.count} contributions in ${d.month}`}
                         >
                             <div className="absolute inset-0 bg-text opacity-0 hover:opacity-20 transition-opacity rounded-sm" />
@@ -76,8 +113,10 @@ export default async function ContributionGraph({ username }: Props) {
 
             <div className="mt-4 flex flex-col sm:flex-row justify-between items-center text-xs sm:text-sm text-text-muted gap-2 sm:gap-0">
                 <span>
-                    This year, I achieved <strong className="text-text">{totalContributions}</strong> contributions
+                    This year, I achieved{' '}
+                    <strong className="text-text">{totalContributions}</strong> contributions
                 </span>
+
                 <div className="flex flex-wrap sm:flex-nowrap items-center gap-2">
                     <span>Less</span>
                     <div className="flex gap-1">

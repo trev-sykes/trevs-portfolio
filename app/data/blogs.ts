@@ -925,8 +925,288 @@ CS fundamentals, backend architecture, and real applications all clicking togeth
 And honestly?  
 That’s when coding started feeling *powerful*.
         `,
+    },
+    {
+        id: "structuring-express-after-breaking-it",
+        title: "How I Structure Express Apps After Breaking Them 3 Times",
+        date: "2025-12-30",
+        tags: ["backend", "express", "architecture"],
+        excerpt: "After breaking my Express apps more times than I’d like to admit, this is the structure I finally landed on — and why it works.",
+        content: `
+### Introduction
+
+I didn’t arrive at my Express project structure because I planned it perfectly.
+
+I arrived there because I **broke my backend three different times**.
+
+Each time, the app technically worked — until it didn’t.  
+Adding features felt risky.  
+Refactoring felt like pulling on a loose thread and hoping the sweater didn’t unravel.
+
+This post is about what failed, what finally clicked, and the structure I now use that makes Express feel calm instead of fragile.
+
+---
+
+### The First Break: Everything in One File
+
+My earliest Express apps looked like this:
+
+\`\`\`ts
+// index.ts
+app.get("/users", async (req, res) => {
+    // logic
+});
+
+app.post("/users", async (req, res) => {
+    // more logic
+});
+\`\`\`
+
+At first, this felt fast.  
+No folders. No decisions. Just code.
+
+But very quickly:
+- the file grew
+- logic duplicated
+- scrolling replaced thinking
+- changing one thing broke another
+
+It worked — but only in the short term.
+
+**Lesson:**  
+Express lets you do this, but it doesn’t mean it’s sustainable.
+
+---
+
+### The Second Break: Fat Routes Everywhere
+
+So I split things up.
+
+\`\`\`
+src/
+    routes/
+        users.ts
+        posts.ts
+\`\`\`
+
+Better… but still messy.
+
+\`\`\`ts
+router.post("/", async (req, res) => {
+    // validation
+    // business logic
+    // database calls
+    // response formatting
+});
+\`\`\`
+
+Routes started doing *everything*.
+
+Soon:
+- logic was hard to reuse
+- testing was painful
+- routes became mini-apps
+
+**Lesson:**  
+Routes should describe *where* requests go — not *how* things work.
+
+---
+
+### The Third Break: Controllers That Tried to Do Too Much
+
+Next evolution: controllers.
+
+Progress — but I still made them too powerful.
+
+\`\`\`ts
+export const createUser = async (req, res) => {
+    // validation
+    // rules
+    // prisma queries
+    // formatting
+};
+\`\`\`
+
+Controllers became bloated.  
+Refactoring hurt again.  
+Everything felt tightly coupled.
+
+**Lesson:**  
+Controllers are not the brain of your app — they’re the bridge.
+
+---
+
+### The Structure I Finally Landed On
+
+After breaking things enough times, this structure stuck:
+
+\`\`\`
+src/
+    routes/
+    controllers/
+    services/
+    middleware/
+    prisma/
+    types/
+    index.ts
+\`\`\`
+
+Simple.  
+Predictable.  
+Scales without stress.
+
+Each layer has **one responsibility**.
+
+---
+
+### Routes: Just the Map
+
+Routes define *what exists*, nothing more.
+
+\`\`\`ts
+// routes/userRoutes.ts
+router.get("/", getUsers);
+router.post("/", createUser);
+\`\`\`
+
+No logic.  
+No thinking.  
+Just mapping URLs to controllers.
+
+---
+
+### Controllers: Request In, Response Out
+
+Controllers are intentionally thin.
+
+\`\`\`ts
+// controllers/userController.ts
+export const createUser = async (req: Request, res: Response) => {
+    const user = await userService.createUser(req.body);
+    res.status(201).json(user);
+};
+\`\`\`
+
+They:
+- read input
+- call a service
+- send output
+
+If a controller feels complex, something is off.
+
+---
+
+### Services: Where the Thinking Lives
+
+This is where everything clicked.
+
+\`\`\`ts
+// services/userService.ts
+export const createUser = async (data: CreateUserDTO) => {
+    if (!data.email) {
+        throw new Error("Email is required");
     }
 
+    return prisma.user.create({ data });
+};
+\`\`\`
+
+Services:
+- hold business logic
+- talk to the database
+- are reusable
+- are testable
+
+This is where complexity *belongs*.
+
+---
+
+### Middleware: Cross-Cutting Concerns
+
+Auth.  
+Logging.  
+Rate limiting.  
+Validation.
+
+\`\`\`ts
+app.use(authMiddleware);
+\`\`\`
+
+Middleware keeps this logic **out of your core app**, which massively improves clarity.
+
+---
+
+### Types: Quietly Saving Me From Myself
+
+Adding a \`types/\` folder was a turning point.
+
+\`\`\`ts
+export interface CreateUserDTO {
+    name: string;
+    email: string;
+}
+\`\`\`
+
+Types:
+- move cleanly between layers
+- document intent
+- reduce runtime bugs
+- make refactors safer
+
+---
+
+### Why This Structure Actually Scales
+
+The biggest win wasn’t performance.
+
+It was **confidence**.
+
+I always know:
+- where new code goes
+- where bugs probably live
+- what files I don’t need to touch
+
+Adding features stopped feeling risky.
+
+---
+
+### Mistakes I No Longer Make
+
+- ❌ business logic in routes  
+- ❌ database calls in controllers  
+- ❌ giant god files  
+- ❌ duplicated logic  
+- ❌ unclear responsibilities  
+
+Each one cost me time before I learned the pattern.
+
+---
+
+### What I’d Tell My Past Self
+
+- Structure early, refactor often  
+- Thin controllers are a good sign  
+- Services are worth the extra files  
+- Small files beat clever abstractions  
+- If it feels messy, it probably is  
+
+---
+
+### Final Thoughts
+
+I used to think backend structure was overengineering.
+
+Now I see it as friction removal.
+
+Express didn’t change.  
+I did.
+
+Once I stopped fighting structure and started embracing it, Express stopped feeling fragile and started feeling dependable.
+
+And honestly?  
+That’s when building backends started feeling *fun* again.
+        `,
+    },
 ];
 
 export default BLOGS;

@@ -40,9 +40,9 @@ export default async function ProjectDetail({ params }: Props) {
 
     // Dynamically generate Key Features
     const keyFeatures = [
-        `Built with modern technologies: ${project.tech.slice(0, 3).join(", ")}`,
+        `Built with modern technologies: ${project.tech.slice(0, 3).map((t) => t.name).join(", ")} `,
         "Responsive design optimized for all devices",
-        project.hosting ? `Deployed on: ${project.hosting.join(", ")}` : null,
+        project.hosting ? `Deployed on: ${project.hosting.join(", ")} ` : null,
         project.summary ? "Well-planned architecture and data modeling" : null,
         project.learnings && project.learnings.length > 0 ? "Notable learnings applied in development" : null,
     ].filter(Boolean);
@@ -93,7 +93,7 @@ export default async function ProjectDetail({ params }: Props) {
                                             ? "bg-accent-blue text-bg"
                                             : "bg-accent-red text-bg"
                                     }
-            `}
+`}
                             >
                                 {project.category.toUpperCase()}
                             </span>
@@ -209,7 +209,7 @@ export default async function ProjectDetail({ params }: Props) {
                     <h2 className="text-2xl font-semibold text-accent-cyan mb-4">Technical Highlights</h2>
                     <div className="bg-surface-dark border border-border-dark rounded-lg p-6">
                         <p className="text-text-muted mb-4">
-                            This project demonstrates how {project.tech.join(", ")} work together to create a seamless, high-performance user experience.
+                            This project demonstrates how{" "} {project.tech.map((t) => t.name).join(", ")}{" "} work together to create a seamless, high-performance user experience.
                         </p>
                         {project.summary && (
                             <p className="text-text-muted mb-4">
@@ -244,7 +244,7 @@ export default async function ProjectDetail({ params }: Props) {
                             {recommended.map((rec) => (
                                 <Link
                                     key={rec.id}
-                                    href={`/projects/${rec.slug}`}
+                                    href={`/projects/${rec.slug} `}
                                     className="group bg-surface-dark border border-border-dark rounded-lg p-5 shadow-md hover:shadow-xl hover:shadow-accent-cyan/20 hover:-translate-y-1 transition-all duration-300"
                                 >
                                     <h3 className="text-lg font-semibold text-text group-hover:text-accent-cyan mb-1">

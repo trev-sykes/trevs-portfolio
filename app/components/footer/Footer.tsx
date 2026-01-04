@@ -42,7 +42,7 @@ const Footer: React.FC = () => {
                 </a>
             </div>
             <p className="text-xs text-text-muted">
-                {PROFILE.name}. © 2025
+                {PROFILE.name}. © 2026
             </p>
         </footer>
     );

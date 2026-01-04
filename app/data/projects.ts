@@ -22,7 +22,10 @@ const PROJECTS: Project[] = [
         liveDemo: "https://feels-aggregate.vercel.app/",
         github: "https://github.com/trev-sykes/feels-aggregate",
         thumbnail: "/projects/feels-aggregate.png",
-        tech: [SKILL_MAP.next, SKILL_MAP.prisma],
+        tech: [
+            SKILL_MAP.next,
+            SKILL_MAP.prisma
+        ],
         hosting: ["Vercel", "Neon"],
         category: 'deep',
         date: '2025-12'
@@ -67,8 +70,19 @@ const PROJECTS: Project[] = [
         logo: "/logos/question-everything.png",
         description:
             "A personal blog where I explore topics like crypto, conspiracies, technology, AI, and more.",
-        mobileDescription: "Animated blog sharing thoughts on tech, crypto, and big ideas.",
-        summary: "Built with React, TypeScript, Vite, and Framer Motion.Features smooth transitions and content animations, offering a space to share ideas and insights. Github comments integreated for ongoing discussions for each blog. ",
+        mobileDescription:
+            "Animated blog sharing thoughts on tech, crypto, and big ideas.",
+        summary:
+            "Built with React, TypeScript, Vite, Tailwind, and Framer Motion, Question Everything is a personal writing space designed to encourage curiosity and skepticism. The project focuses heavily on motion, pacing, and readability, using subtle animations to guide attention without overwhelming the content. I integrated GitHub-based comments to keep discussions transparent and developer-centric, allowing each post to evolve through community feedback. More than just a blog, this project reflects my habit of questioning assumptions—both technical and philosophical—and experimenting with how ideas are presented on the web.",
+        challenges:
+            "One of the main challenges was balancing visual motion with long-form readability. I wanted animations to enhance the experience without distracting from the writing itself, which required a lot of iteration on timing, easing, and layout transitions. Another challenge was integrating a comment system that felt lightweight and aligned with the project’s ethos; using GitHub discussions introduced constraints around UX and moderation, but ultimately fit the project’s transparency-first mindset. Maintaining a clean content structure while allowing flexibility in topics also pushed me to think more carefully about component design and content boundaries.",
+        learnings: [
+            "Designing motion systems with Framer Motion",
+            "Balancing animations with content readability",
+            "Structuring content-driven React applications",
+            "Integrating third-party services for community discussion",
+            "Treating personal projects as evolving systems, not static builds"
+        ],
         liveDemo: "https://question-everything.vercel.app/",
         github: "https://github.com/trev-sykes/question-everything",
         thumbnail: "/projects/question-everything.png",
@@ -80,8 +94,8 @@ const PROJECTS: Project[] = [
             SKILL_MAP.tailwind
         ],
         hosting: ["Vercel"],
-        category: 'deep',
-        date: '2025-04'
+        category: "deep",
+        date: "2025-04"
     },
     {
         id: 4,

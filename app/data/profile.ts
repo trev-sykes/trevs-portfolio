@@ -10,7 +10,7 @@ const PROFILE = {
   portfolio: "https://trevs-portfolio.vercel.app",
   tagline: "Fullstack Developer",
   bioShort: `
-      Fullstack Developer with experience building production-ready applications.
+      Fullstack Developer with experience building production ready applications.
       Expert in React, TypeScript, Prisma, and Node.js.
     `,
   bioLong: `

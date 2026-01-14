@@ -1207,6 +1207,237 @@ And honestly?
 That’s when building backends started feeling *fun* again.
         `,
     },
+    {
+        id: "nextjs-vs-express-backend",
+        title: "Next.js vs Express: Where Backend Complexity Actually Belongs",
+        date: "2026-1-14",
+        tags: ["backend", "nextjs", "express", "architecture"],
+        excerpt: "I used both Next.js and Express as backends — and learned they solve very different problems once your app starts growing.",
+        content: `
+    ### Introduction
+    
+    At some point, every full-stack developer asks this question:
+    
+    **“Should I use Next.js as my backend… or just build an Express API?”**
+    
+    I’ve used both.  
+    I’ve shipped apps with both.  
+    And I’ve been confused by both — for very different reasons.
+    
+    This post isn’t about which one is “better”.  
+    It’s about *what problem each one actually solves*, and why choosing the wrong one can quietly slow you down.
+    
+    ---
+    
+    ### When Next.js *Feels* Like the Obvious Choice
+    
+    Next.js makes backend code feel effortless.
+    
+    \`\`\`ts
+    // app/api/users/route.ts
+    export async function GET() {
+        return Response.json({ users: [] });
+    }
+    \`\`\`
+    
+    No server setup.  
+    No routing library.  
+    No boilerplate.
+    
+    You already have:
+    - API routes
+    - middleware
+    - auth helpers
+    - environment config
+    - deployment handled
+    
+    For small apps, this feels magical.
+    
+    **Lesson:**  
+    Next.js lowers the barrier to shipping.
+    
+    ---
+    
+    ### Where That Magic Starts to Crack
+    
+    The problems didn’t show up immediately.
+    
+    They showed up when:
+    - logic grew
+    - endpoints multiplied
+    - features overlapped
+    - reuse became necessary
+    
+    Suddenly:
+    - API routes duplicated logic
+    - business rules leaked into route files
+    - folders grew deep and unclear
+    - testing felt awkward
+    
+    \`\`\`ts
+    // app/api/orders/route.ts
+    // validation
+    // business rules
+    // db access
+    // response formatting
+    \`\`\`
+    
+    This felt familiar.
+    
+    **Lesson:**  
+    Convenience scales until complexity arrives — then structure matters.
+    
+    ---
+    
+    ### Express Feels Slower… At First
+    
+    Express never felt magical.
+    
+    It felt manual.
+    
+    \`\`\`ts
+    const app = express();
+    app.use(express.json());
+    app.use("/users", userRoutes);
+    \`\`\`
+    
+    More files.  
+    More decisions.  
+    More setup.
+    
+    But something interesting happened as the app grew.
+    
+    Nothing fought me.
+    
+    ---
+    
+    ### Express Forces You to Be Honest About Architecture
+    
+    Express doesn’t pretend to be your backend.
+    
+    It *is* your backend.
+    
+    You decide:
+    - where logic lives
+    - how layers communicate
+    - how things scale
+    - what gets reused
+    
+    And because of that, patterns emerge naturally:
+    
+    \`\`\`
+    routes → controllers → services → database
+    \`\`\`
+    
+    No hidden magic.  
+    No framework opinions leaking into business logic.
+    
+    **Lesson:**  
+    Express trades speed for clarity — and clarity compounds.
+    
+    ---
+    
+    ### Testing Was the Turning Point
+    
+    Testing in Next.js backend routes always felt… off.
+    
+    Mocking requests.  
+    Mocking responses.  
+    Mocking framework behavior.
+    
+    In Express:
+    - services are pure logic
+    - controllers are thin
+    - routes are irrelevant to tests
+    
+    \`\`\`ts
+    test("creates user", async () => {
+        const user = await userService.createUser(data);
+        expect(user.email).toBe(data.email);
+    });
+    \`\`\`
+    
+    This changed how confident I felt shipping changes.
+    
+    ---
+    
+    ### Deployment Isn’t the Same Problem Anymore
+    
+    This used to be a big argument *for* Next.js.
+    
+    But today:
+    - Docker exists
+    - serverless exists
+    - managed hosts exist
+    
+    Express isn’t hard to deploy anymore.
+    
+    **Lesson:**  
+    Deployment convenience matters less than long-term maintainability.
+    
+    ---
+    
+    ### When I Choose Next.js as a Backend
+    
+    I still use it — intentionally.
+    
+    - small products
+    - MVPs
+    - internal tools
+    - apps with minimal business logic
+    - when frontend and backend are tightly coupled
+    
+    If speed matters more than structure, Next.js wins.
+    
+    ---
+    
+    ### When I Choose Express
+    
+    Express is my default when:
+    - the backend is its own product
+    - logic is complex
+    - multiple clients consume the API
+    - testing matters
+    - scaling is expected
+    
+    It’s boring — in the best way.
+    
+    ---
+    
+    ### The Real Difference No One Mentions
+    
+    This isn’t about frameworks.
+    
+    It’s about **where complexity lives**.
+    
+    Next.js hides it — until it doesn’t.  
+    Express exposes it — so you deal with it early.
+    
+    ---
+    
+    ### What I’d Tell My Past Self
+    
+    - Don’t pick Next.js just because it’s convenient  
+    - Don’t avoid Express because it feels “old”  
+    - Backend clarity beats frontend convenience  
+    - Framework magic has a shelf life  
+    - Structure is not overengineering  
+    
+    ---
+    
+    ### Final Thoughts
+    
+    Next.js is an incredible *product framework*.  
+    Express is a dependable *backend foundation*.
+    
+    Once I stopped treating them as interchangeable, my apps got simpler — not more complex.
+    
+    Choose the tool based on **where your complexity will live**, not how fast you can ship today.
+    
+    That one decision saves months later.
+        `,
+    },
+
 ];
 
 export default BLOGS;

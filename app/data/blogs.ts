@@ -1379,7 +1379,7 @@ Deployment convenience matters less than long-term maintainability.
 
 ### When I Choose Next.js as a Backend
 
-I still use it — intentionally.
+I still use it, intentionally.
 
 - small products
 - MVPs
@@ -1400,7 +1400,7 @@ Express is my default when:
 - testing matters
 - scaling is expected
 
-It’s boring — in the best way.
+It’s boring, in the best way.
 
 ---
 
@@ -1410,8 +1410,8 @@ This isn’t about frameworks.
 
 It’s about **where complexity lives**.
 
-Next.js hides it — until it doesn’t.  
-Express exposes it — so you deal with it early.
+Next.js hides it, until it doesn’t.  
+Express exposes it, so you deal with it early.
 
 ---
 

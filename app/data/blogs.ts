@@ -1430,7 +1430,7 @@ Express exposes it, so you deal with it early.
 Next.js is an incredible *product framework*.  
 Express is a dependable *backend foundation*.
 
-Once I stopped treating them as interchangeable, my apps got simpler — not more complex.
+Once I stopped treating them as interchangeable, my apps got simpler, not more complex.
 
 Choose the tool based on **where your complexity will live**, not how fast you can ship today.
 

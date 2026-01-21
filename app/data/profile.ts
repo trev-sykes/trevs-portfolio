@@ -16,7 +16,7 @@ const PROFILE = {
   bioLong: `
       Experienced in building real-time systems, scalable architectures and 
       intuitive user interfaces. Passionate about solving complex challenges 
-      and delivering meaningful user experiences.
+      and delivering amazing user experiences.
     `,
 };
 export default PROFILE

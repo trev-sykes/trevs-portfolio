@@ -1373,7 +1373,7 @@ But today:
 Express isn’t hard to deploy anymore.
 
 **Lesson:**  
-Deployment convenience matters less than long-term maintainability.
+Deployment convenience matters less than long term maintainability.
 
 ---
 

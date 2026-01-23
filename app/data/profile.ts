@@ -14,7 +14,7 @@ const PROFILE = {
       Expert in React, TypeScript, Prisma, and Node.js.
     `,
   bioLong: `
-      Experienced in building real-time systems, scalable architectures and 
+      Experienced in building real time systems, scalable architectures and 
       intuitive user interfaces. Passionate about solving complex challenges 
       and delivering amazing user experiences.
     `,

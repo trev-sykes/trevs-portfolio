@@ -1437,6 +1437,301 @@ Choose the tool based on **where your complexity will live**, not how fast you c
 That one decision saves months later.
         `,
     },
+    {
+        id: "understanding-jwt-authentication",
+        title: "Finally Understanding JWT Authentication (Without the BS)",
+        date: "2026-01-25",
+        tags: ["backend", "express", "authentication"],
+        excerpt: "How I went from copy-pasting auth code to actually understanding JWTs, sessions, and why authentication isn't as scary as it seems.",
+        content: `
+### Introduction
+
+For the longest time, **authentication** was that thing I avoided.
+
+Not because it was hard — because it felt like a mystery wrapped in security jargon.
+
+JWT? Sessions? Bcrypt? OAuth?  
+I'd copy-paste code from tutorials, cross my fingers, and hope nothing broke.
+
+Then one day I decided: *enough*.
+
+I built authentication from scratch, broke it a few times, and finally understood what's actually happening behind the login button.
+
+This post is about that journey — and why auth is way less scary once you strip away the magic.
+
+---
+
+### The Mental Block I Had to Break
+
+My biggest mistake was thinking authentication was one giant thing.
+
+It's not.
+
+Authentication is really just answering three questions:
+
+1. **Who are you?** (login)
+2. **Prove it.** (token/session)
+3. **What can you do?** (authorization)
+
+Once I separated these, everything clicked.
+
+---
+
+### Starting Simple: Password Hashing
+
+First real lesson: never store plain passwords.
+
+Ever.
+
+\`\`\`ts
+// ❌ NEVER DO THIS
+const user = { email: "satoshi@example.com", password: "mypassword" };
+\`\`\`
+
+Instead, hash it with bcrypt:
+
+\`\`\`ts
+import bcrypt from "bcrypt";
+
+const hashedPassword = await bcrypt.hash(password, 10);
+\`\`\`
+
+Now your database stores something like:  
+\`$2b$10$N9qo8uLOickgx2ZMRZoMye...\`
+
+Even if your DB leaks, the actual passwords stay safe.
+
+**Lesson:**  
+Hashing is one-way. You can check if passwords match, but you can never reverse them.
+
+---
+
+### My First "Real" Login Endpoint
+
+Here's where it started feeling real:
+
+\`\`\`ts
+app.post("/login", async (req, res) => {
+    const { email, password } = req.body;
+
+    const user = await prisma.user.findUnique({ where: { email } });
+    
+    if (!user) {
+        return res.status(401).json({ error: "Invalid credentials" });
+    }
+
+    const isValid = await bcrypt.compare(password, user.password);
+
+    if (!isValid) {
+        return res.status(401).json({ error: "Invalid credentials" });
+    }
+
+    // User is authenticated ✅
+    res.json({ message: "Login successful" });
+});
+\`\`\`
+
+This felt good.
+
+But something was missing.
+
+How does the server remember the user is logged in?
+
+---
+
+### Enter: JSON Web Tokens (JWT)
+
+This is where JWTs finally made sense.
+
+A JWT is just a **signed piece of data** that says:  
+*"This user is who they say they are."*
+
+Think of it like a concert wristband:
+- the venue gives it to you
+- it proves you paid
+- guards check it at the door
+
+\`\`\`ts
+import jwt from "jsonwebtoken";
+
+const token = jwt.sign(
+    { userId: user.id, email: user.email },
+    process.env.JWT_SECRET,
+    { expiresIn: "7d" }
+);
+
+res.json({ token });
+\`\`\`
+
+Now the client stores this token (usually in localStorage or a cookie), and sends it with every request.
+
+---
+
+### Protecting Routes with Middleware
+
+This is where it all comes together.
+
+\`\`\`ts
+const authMiddleware = (req, res, next) => {
+    const token = req.headers.authorization?.split(" ")[1];
+
+    if (!token) {
+        return res.status(401).json({ error: "No token provided" });
+    }
+
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        req.user = decoded;
+        next();
+    } catch (err) {
+        return res.status(401).json({ error: "Invalid token" });
+    }
+};
+
+app.get("/protected", authMiddleware, (req, res) => {
+    res.json({ message: \`Hello, \${req.user.email}\` });
+});
+\`\`\`
+
+Now:
+- unauthenticated users get blocked
+- authenticated users get access
+- the server knows who's making the request
+
+This felt like unlocking a superpower.
+
+---
+
+### Sessions vs JWTs: The Question I Finally Understood
+
+For a while, I thought sessions and JWTs were the same thing.
+
+They're not.
+
+**Sessions:**
+- server stores user data
+- sends a session ID to the client
+- requires server-side memory or database
+
+**JWTs:**
+- server sends signed data to the client
+- client stores it
+- server just verifies the signature
+
+Sessions = server remembers.  
+JWTs = client carries proof.
+
+Both work. Different tradeoffs.
+
+For most of my projects, JWTs felt simpler — no session store to manage.
+
+---
+
+### Common Mistakes I Made (So You Don't Have To)
+
+**1. Storing tokens in localStorage without thinking**
+
+If your app has XSS vulnerabilities, tokens in localStorage are toast.
+
+Better: httpOnly cookies (immune to JS access).
+
+**2. Never expiring tokens**
+
+Set an expiration. Always.
+
+\`\`\`ts
+{ expiresIn: "7d" }
+\`\`\`
+
+**3. Using weak secrets**
+
+\`\`\`ts
+// ❌ Bad
+const JWT_SECRET = "secret";
+
+// ✅ Good
+const JWT_SECRET = process.env.JWT_SECRET; // long random string
+\`\`\`
+
+**4. Not handling token refresh**
+
+Tokens expire. Build a refresh flow or users will get logged out randomly.
+
+---
+
+### The Signup Flow (Completing the Cycle)
+
+\`\`\`ts
+app.post("/signup", async (req, res) => {
+    const { email, password } = req.body;
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const user = await prisma.user.create({
+        data: { email, password: hashedPassword }
+    });
+
+    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET);
+
+    res.status(201).json({ token });
+});
+\`\`\`
+
+Now you have:
+- signup
+- login
+- protected routes
+
+A complete auth system, from scratch.
+
+---
+
+### What Changed After Understanding This
+
+Before: auth felt like black magic.  
+After: it's just logic + cryptography.
+
+I stopped fearing it.
+
+I started seeing patterns:
+- hash passwords
+- sign tokens
+- verify tokens
+- protect routes
+
+Once you see the structure, you can build on it — OAuth, role-based access, refresh tokens, all of it.
+
+---
+
+### Resources That Actually Helped
+
+- **bcrypt docs** — understand hashing
+- **JWT.io** — decode and inspect JWTs visually
+- **OWASP guidelines** — real security concerns
+- Building it yourself — no tutorial beats hands-on breaking and fixing
+
+---
+
+### Final Thoughts
+
+Authentication isn't magic.
+
+It's just:
+- hashing passwords
+- signing tokens
+- verifying signatures
+- protecting routes
+
+Once I stopped treating it like forbidden knowledge and started treating it like any other feature, everything clicked.
+
+Now I don't copy-paste auth code.
+
+I write it.
+
+And honestly?  
+That confidence carries over into everything else I build.
+        `
+    }
 
 ];
 

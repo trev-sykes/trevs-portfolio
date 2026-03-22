@@ -4,6 +4,40 @@ import { SKILL_MAP } from "./skills";
 const PROJECTS: Project[] = [
     {
         id: 1,
+        slug: 'Home-Contractor-Photos',
+        title: "Home Contractor Photos",
+        logo: '/logos/home-contractor-photos.png',
+        description: "A SaaS platform for home contractors to organize job site photos, showcase before/after transformations, and share professional project pages with clients.",
+        mobileDescription: "SaaS photo management tool for contractors with before/after sliders and client sharing.",
+        summary: "Built with Next.js, Express, Prisma, and PostgreSQL, Home Contractor Photos is a full-stack SaaS with Stripe billing, Cloudinary photo storage, and Resend transactional email. The project pushed me deep into SaaS fundamentals — subscription lifecycle management, webhook handling, feature gating, and rate limiting. Structuring the backend around a clean modules pattern (routes, controller, service per feature) made the codebase easy to reason about as it grew. The frontend uses Next.js App Router with route groups for dashboard and marketing sections, Tailwind v4 with a custom design system, and a mobile-first approach throughout. This was my most complete production-ready build to date.",
+        challenges: "Stripe webhooks were the steepest learning curve — getting the event order right, handling idempotency, and ensuring the raw body reached the webhook handler before express.json() consumed it required careful middleware ordering. Building the before/after slider with proper touch support on mobile was another challenge; passive event listeners and touchAction conflicts took real debugging to resolve. Designing a subscription system that gracefully handles trial → active → cancelled states without locking users out of their own data required careful thought about what should be gated and what should stay readable regardless of plan status.",
+        learnings: [
+            "Full SaaS subscription lifecycle with Stripe",
+            "Webhook handling and middleware ordering in Express",
+            "Feature gating with subscription middleware",
+            "Cloudinary integration for photo upload and storage",
+            "Next.js App Router with route groups and shared layouts",
+            "Mobile touch event handling for interactive UI components",
+            "Transactional email with Resend",
+            "Rate limiting and API protection"
+        ],
+        liveDemo: "https://home-contractor-photos.vercel.app/",
+        github: "https://github.com/trev-sykes/home-contractor-photos",
+        thumbnail: "/projects/home-contractor-photos.png",
+        tech: [
+            SKILL_MAP.next,
+            SKILL_MAP.typescript,
+            SKILL_MAP.express,
+            SKILL_MAP.prisma,
+            SKILL_MAP.tailwind,
+        ],
+        hosting: ["Vercel", "Render", "Neon"],
+        category: 'deep',
+        date: '2026-03'
+    }
+    ,
+    {
+        id: 2,
         slug: 'Feels-Aggregate',
         title: "Feels-Aggregate",
         logo: '/logos/feels-aggregate.png',
@@ -31,7 +65,7 @@ const PROJECTS: Project[] = [
         date: '2025-12'
     },
     {
-        id: 2,
+        id: 3,
         slug: 'ChatRooms',
         title: "ChatRooms",
         logo: '/logos/chatrooms.png',
@@ -64,7 +98,7 @@ const PROJECTS: Project[] = [
         date: '2025-07'
     },
     {
-        id: 3,
+        id: 4,
         slug: "Question-Everything",
         title: "Question Everything",
         logo: "/logos/question-everything.png",
@@ -98,7 +132,7 @@ const PROJECTS: Project[] = [
         date: "2025-04"
     },
     {
-        id: 4,
+        id: 5,
         slug: 'Nostromo-Notes',
         title: "Nostromo Notes",
         logo: '/logos/nostromo-notes.png',
@@ -122,7 +156,7 @@ const PROJECTS: Project[] = [
         date: '2025-01'
     },
     {
-        id: 5,
+        id: 6,
         slug: "Home-Page-Template",
         title: "Home Page Template",
         description:
@@ -144,7 +178,7 @@ const PROJECTS: Project[] = [
         date: '2024-11'
     },
     {
-        id: 6,
+        id: 7,
         slug: "Bonding-Curve-Simulator",
         title: "Bonding Curve Sim",
         logo: "/logos/bonding-curve-simulator.png",
@@ -167,7 +201,7 @@ const PROJECTS: Project[] = [
         date: '2024-03'
     },
     {
-        id: 7,
+        id: 8,
         slug: "Stablecoin-Protocol",
         title: "Stablecoin Protocol",
         logo: "/logos/stablecoin-protocol.png",
@@ -189,7 +223,7 @@ const PROJECTS: Project[] = [
         date: '2024-01'
     },
     {
-        id: 8,
+        id: 9,
         slug: "Bonding-Curve-Marketplace",
         title: "Hype Dex",
         description:
@@ -213,7 +247,7 @@ const PROJECTS: Project[] = [
         date: '2023-11'
     },
     {
-        id: 9,
+        id: 10,
         slug: "Decentralized-Confessional",
         title: "Proof of Regret",
         logo: '/logos/proof-of-regret.png',
@@ -235,7 +269,7 @@ const PROJECTS: Project[] = [
         hosting: ["Arbitrum Testnet", "Vercel"],
         category: 'archived',
         date: '2023-08'
-    }
+    },
 ];
 
 export default PROJECTS;
